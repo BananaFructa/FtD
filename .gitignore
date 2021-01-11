@@ -25,3 +25,8 @@ hs_err_pid*
 # Pentru greenfoot
 *.greenfoot
 FtD/README.TXT
+
+#IteliJ
+
+.idea
+*.iml
