@@ -13,26 +13,69 @@ public class Item extends BaseActor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int dmg=0;
-    private int staminaDrain=0;
-    private int magicDmg=0;
     private int manaDrain=0;
     private int manaPoint=0;
-    private int strPoint=0;
-    private int hpPoint=0;
     private int defPoint=0;
-    private int magicDefPoint=0;
-    private int Lvl=0;
-    private int staminaPoint=0;
+    private int lvl=0;
     private int manaRegenPoint=0;
     private int hpRegenPoint=0;
-    private int staminaRegenPoint=0;
+    private int criticalChance=0;
+    private int hpGain;
+    private int manaGain;
 
     public Item(float x,float y){
         super(x, y);
-
     }
     public void act() 
     {
         // Add your action code here.
-    }    
+    }
+    public void generateStat(){
+        dmg*=lvl;
+        manaDrain*=lvl;
+        manaPoint*=lvl;
+        defPoint*=lvl;
+        manaRegenPoint*=lvl;
+        criticalChance*=lvl;
+    }
+
+    public int getCriticalChance() {
+        return criticalChance;
+    }
+
+    public int getDefPoint() {
+        return defPoint;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public int getHpGain() {
+        return hpGain;
+    }
+
+    public int getHpRegenPoint() {
+        return hpRegenPoint;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public int getManaDrain() {
+        return manaDrain;
+    }
+
+    public int getManaGain() {
+        return manaGain;
+    }
+
+    public int getManaPoint() {
+        return manaPoint;
+    }
+
+    public int getManaRegenPoint() {
+        return manaRegenPoint;
+    }
 }

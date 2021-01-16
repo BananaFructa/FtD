@@ -4,6 +4,20 @@ public class Player extends BaseActor{
 
     private final float Radical2Pe2 = (float)Math.sqrt(2)/2f;
     private Directie orientare;
+    private Item hat;
+    private Item robe;
+    private Item boots;
+    private Item wand;
+    private int maxHp;
+    private int currentHp;
+    private int manaPoint;
+    private int currentMana;
+    private int manaRegen;//only by items
+    private int hpRegen;//only by items
+    private int lvl;
+    private int def;
+    private int dmg;
+    private int critChance;//only by items
 
     public Player() {
         super(0,0);
@@ -49,8 +63,8 @@ public class Player extends BaseActor{
             orientare = Directie.DREAPTA;
         }
     }
-    public void setareTextureDinDirectie(Directie s){
-        switch (s){
+    public void setareTextureDinDirectie(Directie s) {
+        switch (s) {
             case SUS:
                 setImage("W.png");
                 break;
@@ -78,4 +92,16 @@ public class Player extends BaseActor{
                 */
         }
     }
+       public void raiseHp(){
+            maxHp+=10;
+        }
+       public void raiseMana(){
+            manaPoint+=10;
+        }
+       public void raiseDmg(){
+            dmg+=1;
+        }
+        public void raiseDef(){
+            def+=1;
+        }
 }
