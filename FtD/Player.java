@@ -3,7 +3,7 @@ import greenfoot.Greenfoot;
 public class Player extends BaseActor{
 
     private final float Radical2Pe2 = (float)Math.sqrt(2)/2f;
-    private int orientare;
+    private Directie orientare;
 
     public Player() {
         super(0,0);
@@ -21,47 +21,46 @@ public class Player extends BaseActor{
         if (W && !S) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2,-Radical2Pe2);
-                orientare=1;
+                orientare = Directie.DREAPTA;
             } else if (A && !D) {
                 Viteza = new Vector2f(-Radical2Pe2,-Radical2Pe2);
-                orientare=1;
+                orientare = Directie.STANGA;
             } else {
                 Viteza = new Vector2f(0, -1);
-                orientare=1;
+                orientare = Directie.SUS;
             }
         } else if (A && !D) {
             if (S && !W) {
                 Viteza = new Vector2f(-Radical2Pe2, Radical2Pe2);
-                orientare=2;
             } else {
                 Viteza = new Vector2f(-1, 0);
-                orientare=2;
             }
+            orientare = Directie.STANGA;
         } else if (S && !W) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2,Radical2Pe2);
-                orientare=3;
+                orientare = Directie.DREAPTA;
             } else {
                 Viteza = new Vector2f(0, 1);
-                orientare=3;
+                orientare = Directie.JOS;
             }
         } else if (D && !A) {
             Viteza = new Vector2f(1,0);
-            orientare=4;
+            orientare = Directie.DREAPTA;
         }
     }
-    public void direction(int s){
+    public void setareTextureDinDirectie(Directie s){
         switch (s){
-            case 1:
+            case SUS:
                 setImage("W.png");
                 break;
-            case 2:
+            case STANGA:
                 setImage("A.png");
                 break;
-            case 3:
+            case JOS:
                 setImage("S.png");
                 break;
-            case 4:
+            case DREAPTA:
                 setImage("D.png");
                 break;
             /*case 5:
