@@ -22,6 +22,7 @@ public class Item extends BaseActor
     private int criticalChance=0;
     private int hpGain;
     private int manaGain;
+    private String clasa;// Wand Robe Hat Boots Ring Potion
 
     public Item(float x,float y){
         super(x, y);

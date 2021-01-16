@@ -1,5 +1,7 @@
 import greenfoot.Greenfoot;
 
+import java.util.ArrayList;
+
 public class Player extends BaseActor {
 
     private final float Radical2Pe2 = (float)Math.sqrt(2)/2f;
@@ -62,6 +64,14 @@ public class Player extends BaseActor {
             Viteza = new Vector2f(1,0);
             orientare = Directie.DREAPTA;
         }
+        if(regenHp()){
+            currentHp+=hpRegen;
+        }
+        if(regenMana()){
+            currentMana+=manaRegen;
+        }
+        fixStats();
+
     }
     public void setareTextureDinDirectie(Directie s) {
         switch (s) {
@@ -103,5 +113,20 @@ public class Player extends BaseActor {
         }
         public void raiseDef(){
             def+=1;
+        }
+        public boolean regenHp(){
+        return (currentHp!=maxHp);
+        }
+        public boolean regenMana(){
+        return (manaPoint!=currentMana);
+        }
+        public void fixStats(){
+        if(currentHp>maxHp)
+            currentHp=maxHp;
+        if(currentMana>manaPoint)
+            currentMana=manaPoint;
+        }
+        public void equipItem(Item item){
+        
         }
 }
