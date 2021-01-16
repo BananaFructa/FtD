@@ -4,7 +4,7 @@ public class ManagerObiecte {
 
     private static boolean Updateaza = true;
     private final int UpdateDelay = 50;
-    static List<BaseActor> Actori = new ArrayList<BaseActor>();
+    public static List<BaseActor> Actori = new ArrayList<BaseActor>();
 
     public void Init() {
         Thread UpdateThread = new Thread(new Runnable(){

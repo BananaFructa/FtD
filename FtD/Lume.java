@@ -19,11 +19,10 @@ public class Lume extends World
         Instanta = this;
         managerObiecte.Init();
 
-        ActorTest test = new ActorTest();
+        Player test = new Player();
         test.SetViteza(new Vector2f(0.5f,0));
 
         managerObiecte.AdaugaActor(test);
-
 
     }
 
