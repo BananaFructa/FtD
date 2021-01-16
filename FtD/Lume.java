@@ -30,8 +30,8 @@ public class Lume extends World
     @Override
     public void act() {
         super.act();
-        if (System.currentTimeMillis() - SystemTime >= 1000) {
-            Fps = FpsNumarator;
+        if (System.currentTimeMillis() - SystemTime >= 100) {
+            Fps = FpsNumarator * 10;
             FpsNumarator = 0;
             DeltaTimp = FpsDeBaza/Fps;
             SystemTime = System.currentTimeMillis();
