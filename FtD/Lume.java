@@ -8,4 +8,5 @@ public class Lume extends World
         super(600, 400, 1,false);
         addObject(new TestActor(),20,20);
     }
+   
 }
