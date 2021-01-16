@@ -7,6 +7,7 @@ public class Particula extends BaseActor {
         super(pos);
         this.Viteza = viteza;
         this.Lifetime = Lifetime;
+        this.setImage("particula_test.png");
     }
 
     @Override

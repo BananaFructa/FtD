@@ -27,6 +27,15 @@ public class Lume extends World
 
         managerObiecte.AdaugaActor(test);
 
+        ProprietatiParticuleEmise ppe = new ProprietatiParticuleEmise();
+        ppe.LifetimeMin = 20;
+        ppe.LifetimeMax = 30;
+        ppe.Unghi = 0;
+        ppe.VitezaMin = 0.3f;
+        ppe.VitezaMax = 1;
+
+        managerObiecte.AdaugaActor(new SistemParticule(40,40,100,ppe,0));
+
     }
 
     @Override

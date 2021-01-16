@@ -7,6 +7,7 @@ public class Player extends BaseActor {
 
     public Player() {
         super(0,0);
+        this.setImage("bruh.jpg");
     }
 
     @Override

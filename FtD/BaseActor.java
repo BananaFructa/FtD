@@ -41,6 +41,6 @@ public class BaseActor extends Actor {
 
     @Override
     public void act() {
-        this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.DeltaTimp)));
+        this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)));
     }
 }
