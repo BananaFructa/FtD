@@ -1,22 +1,14 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import greenfoot.World;
+import java.util.ArrayList;
 
-/**
- * Write a description of class Inventory here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Inventory extends World
-{
+public class Inventory{
+    private ArrayList<Item> items=new ArrayList<>();
+    private static final int maxNrItems = 40;
+    public Inventory(){
 
-    /**
-     * Constructor for objects of class Inventory.
-     * 
-     */
-    public Inventory()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+    }
+    public void addItem(Item item){
+        if(items.size()<maxNrItems){
+            items.add(item);
+        }
     }
 }
