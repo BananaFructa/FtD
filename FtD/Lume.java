@@ -1,16 +1,19 @@
 import greenfoot.World;
 
+import java.util.Random;
+
 public class Lume extends World
 {
     public static Lume Instanta;
+    public static Random MasterRandom = new Random();
 
     private long SystemTime = 0;
     private int FpsNumarator = 999999;
-    public static int Fps = 0;
-    public static float DeltaTimp = 0;
-    public static final float FpsDeBaza = 60;
+    public int Fps = 0;
+    public float DeltaTimp = 0;
+    public final float FpsDeBaza = 60;
 
-    public static ManagerObiecte managerObiecte = new ManagerObiecte();
+    public ManagerObiecte managerObiecte = new ManagerObiecte();
 
     public Lume()
     {

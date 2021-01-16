@@ -1,6 +1,6 @@
 import greenfoot.Greenfoot;
 
-public class Player extends BaseActor{
+public class Player extends BaseActor {
 
     private final float Radical2Pe2 = (float)Math.sqrt(2)/2f;
     private Directie orientare;
