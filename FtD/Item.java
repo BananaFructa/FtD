@@ -1,43 +1,32 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+public class Item extends BaseActor {
 
-/**
- * Write a description of class Item here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Item extends BaseActor
-{
-    /**
-     * Act - do whatever the Item wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    private int dmg=0;
-    private int manaDrain=0;
-    private int manaPoint=0;
-    private int defPoint=0;
-    private int lvl=0;
-    private int manaRegenPoint=0;
-    private int hpRegenPoint=0;
-    private int criticalChance=0;
+    private int dmg = 0;
+    private int manaDrain = 0;
+    private int manaPoint = 0;
+    private int defPoint = 0;
+    private int lvl = 0;
+    private int manaRegenPoint = 0;
+    private int hpRegenPoint = 0;
+    private int criticalChance = 0;
     private int hpGain;
     private int manaGain;
     private String clasa;// Wand Robe Hat Boots Ring Potion
 
-    public Item(float x,float y){
+    public Item(float x, float y) {
         super(x, y);
     }
-    public void act() 
-    {
+
+    public void act() {
         // Add your action code here.
     }
-    public void generateStat(){
-        dmg*=lvl;
-        manaDrain*=lvl;
-        manaPoint*=lvl;
-        defPoint*=lvl;
-        manaRegenPoint*=lvl;
-        criticalChance*=lvl;
+
+    public void generateStat() {
+        dmg *= lvl;
+        manaDrain *= lvl;
+        manaPoint *= lvl;
+        defPoint *= lvl;
+        manaRegenPoint *= lvl;
+        criticalChance *= lvl;
     }
 
     public int getCriticalChance() {

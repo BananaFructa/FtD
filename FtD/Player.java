@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player extends BaseActor {
 
-    private final float Radical2Pe2 = (float)Math.sqrt(2)/2f;
+    private final float Radical2Pe2 = (float) Math.sqrt(2) / 2f;
     private Directie orientare;
     private Item hat;
     private Item robe;
@@ -22,14 +22,14 @@ public class Player extends BaseActor {
     private int critChance;//only by items
 
     public Player() {
-        super(0,0);
+        super(0, 0);
         this.setImage("bruh.jpg");
     }
 
     @Override
     public void Update() {
         Viteza = new Vector2f();
-        boolean W,A,S,D;
+        boolean W, A, S, D;
         W = Greenfoot.isKeyDown("W");
         A = Greenfoot.isKeyDown("A");
         S = Greenfoot.isKeyDown("S");
@@ -37,10 +37,10 @@ public class Player extends BaseActor {
 
         if (W && !S) {
             if (D && !A) {
-                Viteza = new Vector2f(Radical2Pe2,-Radical2Pe2);
+                Viteza = new Vector2f(Radical2Pe2, -Radical2Pe2);
                 orientare = Directie.DREAPTA;
             } else if (A && !D) {
-                Viteza = new Vector2f(-Radical2Pe2,-Radical2Pe2);
+                Viteza = new Vector2f(-Radical2Pe2, -Radical2Pe2);
                 orientare = Directie.STANGA;
             } else {
                 Viteza = new Vector2f(0, -1);
@@ -55,25 +55,26 @@ public class Player extends BaseActor {
             orientare = Directie.STANGA;
         } else if (S && !W) {
             if (D && !A) {
-                Viteza = new Vector2f(Radical2Pe2,Radical2Pe2);
+                Viteza = new Vector2f(Radical2Pe2, Radical2Pe2);
                 orientare = Directie.DREAPTA;
             } else {
                 Viteza = new Vector2f(0, 1);
                 orientare = Directie.JOS;
             }
         } else if (D && !A) {
-            Viteza = new Vector2f(1,0);
+            Viteza = new Vector2f(1, 0);
             orientare = Directie.DREAPTA;
         }
-        if(regenHp()){
-            currentHp+=hpRegen;
+        if (regenHp()) {
+            currentHp += hpRegen;
         }
-        if(regenMana()){
-            currentMana+=manaRegen;
+        if (regenMana()) {
+            currentMana += manaRegen;
         }
         fixStats();
 
     }
+
     public void setareTextureDinDirectie(Directie s) {
         switch (s) {
             case SUS:
@@ -103,31 +104,39 @@ public class Player extends BaseActor {
                 */
         }
     }
-       public void raiseHp(){
-            maxHp+=10;
-        }
-       public void raiseMana(){
-            manaPoint+=10;
-        }
-       public void raiseDmg(){
-            dmg+=1;
-        }
-        public void raiseDef(){
-            def+=1;
-        }
-        public boolean regenHp(){
-        return (currentHp!=maxHp);
-        }
-        public boolean regenMana(){
-        return (manaPoint!=currentMana);
-        }
-        public void fixStats(){
-        if(currentHp>maxHp)
-            currentHp=maxHp;
-        if(currentMana>manaPoint)
-            currentMana=manaPoint;
-        }
-        public void equipItem(Item item){
-        
-        }
+
+    public void raiseHp() {
+        maxHp += 10;
+    }
+
+    public void raiseMana() {
+        manaPoint += 10;
+    }
+
+    public void raiseDmg() {
+        dmg += 1;
+    }
+
+    public void raiseDef() {
+        def += 1;
+    }
+
+    public boolean regenHp() {
+        return (currentHp != maxHp);
+    }
+
+    public boolean regenMana() {
+        return (manaPoint != currentMana);
+    }
+
+    public void fixStats() {
+        if (currentHp > maxHp)
+            currentHp = maxHp;
+        if (currentMana > manaPoint)
+            currentMana = manaPoint;
+    }
+
+    public void equipItem(Item item) {
+
+    }
 }

@@ -31,8 +31,9 @@ public class Lume extends World
         ppe.LifetimeMin = 20;
         ppe.LifetimeMax = 30;
         ppe.Unghi = 0;
-        ppe.VitezaMin = 0.3f;
-        ppe.VitezaMax = 1;
+        ppe.VitezaMin = 7;
+        ppe.VitezaMax = 10;
+        ppe.UnghiDeviere = 0.1f;
 
         managerObiecte.AdaugaActor(new SistemParticule(40,40,100,ppe,0));
 

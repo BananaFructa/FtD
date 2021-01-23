@@ -5,12 +5,18 @@ public class ProprietatiParticuleEmise {
     public int LifetimeMin;
     public int LifetimeMax;
     public float Unghi;
+    public float UnghiDeviere;
 
-    Vector2f GenereazaViteza() {
-        return new Vector2f((float)Math.cos(Unghi),(float)Math.sin(Unghi)).MultiplicaScalar(VitezaMin + Lume.MasterRandom.nextFloat() * (VitezaMax - VitezaMin));
+    public Vector2f GenereazaViteza() {
+        float Deviere = GenereazaDeviere();
+        return new Vector2f((float)Math.cos(Unghi + Deviere),(float)Math.sin(Unghi + Deviere)).MultiplicaScalar(VitezaMin + Lume.MasterRandom.nextFloat() * (VitezaMax - VitezaMin));
     }
 
-    int GenereazaLifetime() {
+    public float GenereazaDeviere() {
+        return -UnghiDeviere + Lume.MasterRandom.nextFloat() * UnghiDeviere * 2;
+    }
+
+    public int GenereazaLifetime() {
         return LifetimeMin + (int)(Lume.MasterRandom.nextFloat() * (LifetimeMax - LifetimeMin));
     }
 
