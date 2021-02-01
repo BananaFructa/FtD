@@ -5,6 +5,7 @@ public class ManagerObiecte {
     private static boolean Updateaza = true;
     private final int UpdateDelay = 50;
     public static List<BaseActor> Actori = new ArrayList<BaseActor>();
+    private static List<BaseActor> ActoriDeAdaugat = new ArrayList<>();
 
     public void Init() {
         Thread UpdateThread = new Thread(new Runnable(){
@@ -31,20 +32,24 @@ public class ManagerObiecte {
             for (BaseActor actor : Actori) {
                 actor.Update();
             }
+            Actori.addAll(ActoriDeAdaugat);
+            for (BaseActor a : ActoriDeAdaugat) {
+                Lume.Instanta.addObject(a, (int) a.Pozitie.x, (int) a.Pozitie.y);
+                a.Init();
+            }
+            ActoriDeAdaugat.clear();
         }
     }
 
     public void AdaugaActor(BaseActor actor) {
         synchronized (this) {
-            Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
-            Actori.add(actor);
+            ActoriDeAdaugat.add(actor);
             if (actor instanceof IContainer) {
                 List<BaseActor> subActori = ((IContainer) actor).GetObiecte();
                 for (BaseActor a : subActori) {
                     AdaugaActor(a);
                 }
             }
-            actor.Init();
         }
     }
 
