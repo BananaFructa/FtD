@@ -35,6 +35,12 @@ public class ManagerObiecte {
     public void AdaugaActor(BaseActor actor) {
         Lume.Instanta.addObject(actor,(int)actor.Pozitie.x,(int)actor.Pozitie.y);
         Actori.add(actor);
+        if (actor instanceof IContainer) {
+            List<BaseActor> subActori = ((IContainer)actor).GetObiecte();
+            for (BaseActor a : subActori) {
+                AdaugaActor(a);
+            }
+        }
         actor.Init();
     }
 
