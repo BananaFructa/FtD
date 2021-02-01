@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Inventory extends BaseActor{
+public class Inventory extends BaseActor implements IContainer{
     private Map<String , Item_nr> slots=new HashMap<>();
     private String key ="";
     private int nr=0;
@@ -14,7 +15,7 @@ public class Inventory extends BaseActor{
       this.getImage().scale(600,400);
       for(int i=0;i<6;i++){
           for(int j=0;j<4;j++){
-              key=String.format("#&s#&s",i,j);
+              key=String.format("#%s#%s",i,j);
               slots.put(key,new Item_nr(j*100,i*100,0));
           }
       }
@@ -29,7 +30,7 @@ public class Inventory extends BaseActor{
             this.getImage().setTransparency(v);
             for(int i=0;i<6;i++){
                 for(int j=0;j<4;j++){
-                    key=String.format("#&s#&s",i,j);
+                    key=String.format("#%s#%s",i,j);
                     if(slots.get(key).getTex()!=null)
                     slots.get(key).getTex().getImage().setTransparency(v);
                     slots.get(key).getImage().setTransparency(v);
@@ -54,5 +55,18 @@ public class Inventory extends BaseActor{
     }
     public Map<String , Item_nr> getSlots(){
         return this.slots;
+    }
+
+    @Override
+    public List<BaseActor> GetObiecte() {
+        return new ArrayList<>(){{
+            String key;
+            for(int i=0;i<6;i++){
+                for(int j=0;j<4;j++){
+                   key=String.format("#%s#%s",i,j);
+                   add(slots.get(key));
+                }
+            }
+        }};
     }
 }

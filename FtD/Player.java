@@ -2,8 +2,9 @@ import greenfoot.Greenfoot;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Player extends BaseActor {
+public class Player extends BaseActor implements IContainer{
 
     private final float Radical2Pe2 = (float) Math.sqrt(2) / 2f;
     private Directie orientare;
@@ -144,5 +145,10 @@ public class Player extends BaseActor {
     }
     public void equipItem(Item item) {
 
+    }
+
+    @Override
+    public List<BaseActor> GetObiecte() {
+        return new ArrayList<>(){{add(iny);}};
     }
 }
