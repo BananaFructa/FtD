@@ -1,5 +1,6 @@
 import greenfoot.Greenfoot;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Player extends BaseActor {
@@ -20,20 +21,23 @@ public class Player extends BaseActor {
     private int def;
     private int dmg;
     private int critChance;//only by items
+    private Inventory iny;
 
     public Player() {
         super(0, 0);
         this.setImage("bruh.jpg");
+        iny=new Inventory();
     }
 
     @Override
     public void Update() {
         Viteza = new Vector2f();
-        boolean W, A, S, D;
+        boolean W, A, S, D,I;
         W = Greenfoot.isKeyDown("W");
         A = Greenfoot.isKeyDown("A");
         S = Greenfoot.isKeyDown("S");
         D = Greenfoot.isKeyDown("D");
+        I=Greenfoot.isKeyDown("I");
 
         if (W && !S) {
             if (D && !A) {
@@ -72,7 +76,10 @@ public class Player extends BaseActor {
             currentMana += manaRegen;
         }
         fixStats();
-
+        if(I){
+            iny.setOpen(!iny.getOpen());
+            iny.hide(iny.getOpen());
+        }
     }
 
     public void setareTextureDinDirectie(Directie s) {
@@ -135,7 +142,6 @@ public class Player extends BaseActor {
         if (currentMana > manaPoint)
             currentMana = manaPoint;
     }
-
     public void equipItem(Item item) {
 
     }

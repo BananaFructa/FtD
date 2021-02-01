@@ -1,5 +1,8 @@
 import greenfoot.Actor;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 public class BaseActor extends Actor {
 
     protected Vector2f Pozitie;
@@ -38,7 +41,6 @@ public class BaseActor extends Actor {
     public Vector2f GetViteza() {
         return this.Viteza;
     }
-
     @Override
     public void act() {
         this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)));
