@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item_nr extends BaseActor{
     public Item tex;
     private int nrOb;
