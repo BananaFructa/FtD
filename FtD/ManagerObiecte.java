@@ -17,8 +17,10 @@ public class ManagerObiecte {
             public void run() {
                 try {
                     for (; Updateaza; Thread.sleep(UpdateDelay)) {
+                        Lume.Instanta.inputKeyboard.UpdateazaCurentStatus();
                         Update();
                         Lume.Instanta.inputMouse.SetApasat(false);
+                        Lume.Instanta.inputKeyboard.UpdateazaUltimStatus();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
