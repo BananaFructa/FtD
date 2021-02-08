@@ -33,9 +33,6 @@ public class ManagerObiecte {
     }
 
     public void Update() {
-        for (UIActor actor : Interfete) {
-            actor.Update();
-        }
         try {
             for (BaseActor actor : Actori) {
                 actor.Update();
@@ -54,6 +51,10 @@ public class ManagerObiecte {
         }
         ActoriDeAdaugat.clear();
         ActoriDeDistrus.clear();
+
+        for (UIActor actor : Interfete) {
+            actor.Update();
+        }
     }
 
     public void AdaugaActor(BaseActor actor) {
