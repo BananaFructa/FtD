@@ -25,6 +25,7 @@ public class Player extends BaseActor {
     private int dmg;
     private int critChance;//only by items
     private HashMap<String, Item> info=new HashMap<>();
+    private boolean LastOpenedInventory = false;
 
     //public Item[][] Inventar = new Item[4][6];
 
@@ -162,9 +163,11 @@ public class Player extends BaseActor {
 
     public void hide() {
         String key= Greenfoot.getKey();
-        if("i".equals(key)){
+        boolean hide = "i".equals(key);
+        if(hide && !LastOpenedInventory){
             Interfete.Inventar.Toggle();
         }
+        LastOpenedInventory = hide;
     }
 
     public void raiseHp() {
