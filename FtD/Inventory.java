@@ -18,7 +18,7 @@ public class Inventory extends UIActor implements IContainer {
       for(int i=0;i<4;i++){
           for(int j=0;j<6;j++){
               key=String.format("#%s#%s",i,j);
-              slots.put(key,new Item_nr(j*100+47,i*100+47,0));
+              slots.put(key,new Item_nr(j*100+47,i*100+47));
           }
       }
       hide(Deschis);
@@ -50,11 +50,10 @@ public class Inventory extends UIActor implements IContainer {
                 for (int j = 0; j < 6 && canAdd; j++) {
                     key = String.format("#%s#%s", i, j);
                     if (!items.containsKey(key)) {
-                        items.put(key ,new Item_nr(slots.get(key).getX(),slots.get(key).getY(),0));
+                        Item_nr nr=new Item_nr(slots.get(key).getX(),slots.get(key).getY(),0);
+                        items.put(key ,nr);
+                        Lume.Instanta.managerObiecte.InregistreazaInterfata(nr);
                         items.get(key).addItem(item);
-                        items.get(key).setImage("fig.png");
-                        items.get(key).getImage().scale(90,90);
-                        items.get(key).setPozitie(slots.get(key).getX(),slots.get(key).getY());
                        // System.out.println("itemmmmmm");
                        System.out.println(slots.get(key).getX()+" "+slots.get(key).getY());
                         System.out.println(items.get(key).getY()+" "+items.get(key).getY());
