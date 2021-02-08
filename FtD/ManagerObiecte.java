@@ -89,4 +89,11 @@ public class ManagerObiecte {
         }
         actor.Init();
     }
+
+    public void DistrugeInterfata(UIActor actor) {
+        if (Interfete.contains(actor)) {
+            Interfete.remove(actor);
+            Lume.Instanta.removeObject(actor);
+        }
+    }
 }
