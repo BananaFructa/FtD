@@ -78,6 +78,7 @@ public class ManagerObiecte {
 
     public void InregistreazaInterfata(UIActor actor) {
         Interfete.add(actor);
+        Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
         if (actor instanceof IContainer) {
             List<UIActor> subInterfete = (List<UIActor>)(List<?>)((IContainer) actor).GetObiecte();
             for (UIActor a : subInterfete) {

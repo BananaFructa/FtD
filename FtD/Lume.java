@@ -26,8 +26,10 @@ public class Lume extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 512, 1,false);
         Instanta = this;
+
         managerObiecte.Init();
         Interfete.Init();
+
         Item item1=new Item();
         Item item2=new Item();
         Item item3=new Item();
