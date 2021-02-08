@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends BaseActor implements IContainer{
+public class Player extends BaseActor {
 
     private final float Radical2Pe2 = (float) Math.sqrt(2) / 2f;
     private Directie orientare;
@@ -23,23 +23,43 @@ public class Player extends BaseActor implements IContainer{
     private int def;
     private int dmg;
     private int critChance;//only by items
-    private Inventory iny;
+
+    public Item[][] Inventar = new Item[4][6];
 
     public Player() {
         super(0, 0);
         this.setImage("bruh.jpg");
-        iny=new Inventory();
     }
 
     @Override
     public void Update() {
+        boolean I;
+        I=Greenfoot.isKeyDown("I");
+
+        UpdateControl();
+        UpdateActiune();
+
+        if (regenHp()) {
+            currentHp += hpRegen;
+        }
+        if (regenMana()) {
+            currentMana += manaRegen;
+        }
+
+        fixStats();
+
+        if(I){
+            Interfete.Inventar.Toggle();
+        }
+    }
+
+    public void UpdateControl() {
         Viteza = new Vector2f();
-        boolean W, A, S, D,I;
+        boolean W, A, S, D, I;
         W = Greenfoot.isKeyDown("W");
         A = Greenfoot.isKeyDown("A");
         S = Greenfoot.isKeyDown("S");
         D = Greenfoot.isKeyDown("D");
-
         if (W && !S) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2, -Radical2Pe2);
@@ -78,9 +98,15 @@ public class Player extends BaseActor implements IContainer{
         }
         fixStats();
         hide();
-        if (Greenfoot.mouseDragged(this)){
-            MouseInfo mouse=Greenfoot.getMouseInfo();
+        if (Greenfoot.mouseDragged(this)) {
+            MouseInfo mouse = Greenfoot.getMouseInfo();
             setLocation(mouse.getX(), mouse.getY());
+        }
+    }
+
+    public void UpdateActiune() {
+        if (Lume.Instanta.inputMouse.Apasat()) {
+            System.out.println("pog");
         }
     }
 
@@ -113,11 +139,11 @@ public class Player extends BaseActor implements IContainer{
                 */
         }
     }
-    public void hide(){
+
+    public void hide() {
         String key= Greenfoot.getKey();
         if("i".equals(key)){
-            iny.setOpen(!iny.getOpen());
-            iny.hide(iny.getOpen());
+            Interfete.Inventar.Toggle();
         }
     }
 
@@ -152,26 +178,27 @@ public class Player extends BaseActor implements IContainer{
             currentMana = manaPoint;
     }
 
-    @Override
-    public List<BaseActor> GetObiecte() {
-        return new ArrayList<>(){{add(iny);}};
-    }
     public void addItem(Item item){
-        iny.addItem(item);
+        Interfete.Inventar.addItem(item);
     }
-    public void dragAndDrop(){
+
+    public void dragAndDrop() {
         String key;
-        for(int i=0;i<4;i++){
-            for(int j=0;j<6;j++){
-                key=String.format("#%s#%s",i,j);
-                if(Greenfoot.mouseClicked(iny))
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                key = String.format("#%s#%s", i, j);
+                if (Greenfoot.mouseClicked(Interfete.Inventar))
                     System.out.println("ceva");
-                if(Greenfoot.mouseDragged(iny.getSlots().get(key))){
+                if (Greenfoot.mouseDragged(Interfete.Inventar.getSlots().get(key))) {
                     System.out.println("ceva");
-                    MouseInfo mouse=Greenfoot.getMouseInfo();
-                    iny.getSlots().get(key).getTex().setLocation(mouse.getX(),mouse.getY());
+                    MouseInfo mouse = Greenfoot.getMouseInfo();
+                    Interfete.Inventar.getSlots().get(key).getTex().setLocation(mouse.getX(), mouse.getY());
                 }
             }
         }
+    }
+
+    public void equipItem(Item item) {
+
     }
 }

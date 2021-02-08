@@ -1,4 +1,4 @@
-public class Item extends BaseActor {
+public class Item {
 
     private int dmg = 0;
     private int manaDrain = 0;
@@ -13,12 +13,7 @@ public class Item extends BaseActor {
     private String clasa;// Wand Robe Hat Boots Ring Potion
 
     public Item(float x, float y ){
-        super(x, y);
 
-    }
-
-    public void act() {
-        // Add your action code here.
     }
 
     public void generateStat() {

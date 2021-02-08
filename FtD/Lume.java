@@ -1,3 +1,4 @@
+import greenfoot.Greenfoot;
 import greenfoot.World;
 
 import java.util.Random;
@@ -13,14 +14,20 @@ public class Lume extends World
     public float DeltaTimp = 0;
     public final float FpsDeBaza = 60;
 
+    public Vector2f CameraPosition = new Vector2f(0,0);
+
     public ManagerObiecte managerObiecte = new ManagerObiecte();
+    public Player player;
+
+    public InputMouse inputMouse = new InputMouse();
 
     public Lume()
     {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1,false);
+        super(1024, 512, 1,false);
         Instanta = this;
         managerObiecte.Init();
+        Interfete.Init();
 
         Player test = new Player();
         test.SetViteza(new Vector2f(0.5f,0));
@@ -55,16 +62,12 @@ public class Lume extends World
         test.addItem(item7);
        // System.out.println(item1.getX()+" "+item1.getY());
        // System.out.println(item2.getX()+" "+item2.getY());
+        player = new Player();
+        player.SetViteza(new Vector2f(0.5f,0));
 
-        ProprietatiParticuleEmise ppe = new ProprietatiParticuleEmise();
-        ppe.LifetimeMin = 20;
-        ppe.LifetimeMax = 30;
-        ppe.Unghi = 0;
-        ppe.VitezaMin = 7;
-        ppe.VitezaMax = 10;
-        ppe.UnghiDeviere = 0.1f;
+        managerObiecte.AdaugaActor(player);
 
-        managerObiecte.AdaugaActor(new SistemParticule(40,40,100,ppe,0));
+        managerObiecte.AdaugaActor(new SistemParticule(40,40,DateParticule.SistemTest,0,0,-1));
 
     }
 
@@ -78,5 +81,10 @@ public class Lume extends World
             SystemTime = System.currentTimeMillis();
         }
         FpsNumarator++;
+        Lume.Instanta.CameraPosition = player.Pozitie.Scade(new Vector2f(this.getWidth()/2f,this.getHeight()/2f));
+        if (Greenfoot.mousePressed(this)) {
+            inputMouse.SetApasat(true);
+            inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
+        }
     }
 }

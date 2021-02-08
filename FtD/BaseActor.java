@@ -1,4 +1,5 @@
 import greenfoot.Actor;
+import greenfoot.Greenfoot;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -22,7 +23,7 @@ public class BaseActor extends Actor {
     }
 
     public BaseActor(Vector2f Pozitie) {
-        this.Pozitie = Pozitie;
+        this.Pozitie = Pozitie.Scade(Lume.Instanta.CameraPosition);
     }
 
     public void SetPozitie(Vector2f v) {
@@ -41,8 +42,13 @@ public class BaseActor extends Actor {
     public Vector2f GetViteza() {
         return this.Viteza;
     }
+
     @Override
     public void act() {
-        this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)));
+        if (Greenfoot.mousePressed(this)) {
+            Lume.Instanta.inputMouse.SetApasat(true);
+            Lume.Instanta.inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
+        }
+        this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)).Scade(Lume.Instanta.CameraPosition));
     }
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item_nr extends BaseActor{
+public class Item_nr extends UIActor {
     public Item tex;
     private int nrOb;
    public Item_nr(float x,float y,int nr){

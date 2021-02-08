@@ -1,5 +1,7 @@
+import greenfoot.Actor;
+
 import java.util.List;
 
 public interface IContainer {
-    public List<BaseActor> GetObiecte();
+    public List<Actor> GetObiecte();
 }
