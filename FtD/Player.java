@@ -3,6 +3,7 @@ import greenfoot.MouseInfo;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Player extends BaseActor {
@@ -23,6 +24,7 @@ public class Player extends BaseActor {
     private int def;
     private int dmg;
     private int critChance;//only by items
+    private HashMap<String, ItemInfo> info=new HashMap<>();
 
     public Item[][] Inventar = new Item[4][6];
 
@@ -107,6 +109,19 @@ public class Player extends BaseActor {
     public void UpdateActiune() {
         if (Lume.Instanta.inputMouse.Apasat()) {
             System.out.println("pog");
+        }
+    }
+    public void addItem(ItemInfo item) {
+        boolean canAdd=true;
+        String key;
+        for(int i=0;i<4 && canAdd;i++){
+            for(int j=0;j<6 && canAdd;j++){
+                key=String.format("#%s#%s",i,j);
+                if(info.get(key)==null) {
+                    info.put(key, item);
+                    canAdd=false;
+                }
+            }
         }
     }
 

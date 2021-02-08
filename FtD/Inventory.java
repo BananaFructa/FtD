@@ -41,19 +41,19 @@ public class Inventory extends UIActor implements IContainer {
         }
     }
 
-    public void addItem(Item item) {
-        boolean canAdd=true;
-        for(int i=0;i<4 && canAdd;i++){
-            for(int j=0;j<6 && canAdd;j++){
-                key=String.format("#%s#%s",i,j);
-                if(slots.get(key).getTex()==null) {
-                    slots.get(key).addItem(item);
-                    slots.get(key).getTex().getImage().setTransparency(0);
-                    canAdd=false;
-                }
-            }
-        }
-    }
+//    public void addItem(Item item) {
+//        boolean canAdd=true;
+//        for(int i=0;i<4 && canAdd;i++){
+//            for(int j=0;j<6 && canAdd;j++){
+//                key=String.format("#%s#%s",i,j);
+//                if(slots.get(key).getTex()==null) {
+//                    slots.get(key).addItem(item);
+//                    slots.get(key).getTex().getImage().setTransparency(0);
+//                    canAdd=false;
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void Deschide() {
