@@ -20,6 +20,7 @@ public class Lume extends World
     public Player player;
 
     public InputMouse inputMouse = new InputMouse();
+    public InputKeyboard inputKeyboard = new InputKeyboard();
 
     public Lume()
     {

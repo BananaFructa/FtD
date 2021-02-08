@@ -59,11 +59,11 @@ public class Player extends BaseActor {
 
     public void UpdateControl() {
         Viteza = new Vector2f();
-        boolean W, A, S, D, I;
-        W = Greenfoot.isKeyDown("W");
-        A = Greenfoot.isKeyDown("A");
-        S = Greenfoot.isKeyDown("S");
-        D = Greenfoot.isKeyDown("D");
+        boolean W, A, S, D;
+        W = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.W);
+        A = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.A);
+        S = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.S);
+        D = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.D);
         if (W && !S) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2, -Radical2Pe2);
@@ -145,29 +145,14 @@ public class Player extends BaseActor {
             case DREAPTA:
                 setImage("D.png");
                 break;
-            /*case 5:
-                setImage("W_D.png");
-                break;
-            case 6:
-                setImage("W_A.png");
-                break;
-            case 7:
-                setImage("S_A.png");
-                break;
-            case 8:
-                setImage("S_D.png");
-                break;
-                */
         }
     }
 
     public void hide() {
-        String key= Greenfoot.getKey();
-        boolean hide = "i".equals(key);
-        if(hide && !LastOpenedInventory){
+        boolean hide = Lume.Instanta.inputKeyboard.ApasatInstantaneu(InputKeyboard.Key.I);
+        if(hide){
             Interfete.Inventar.Toggle();
         }
-        LastOpenedInventory = hide;
     }
 
     public void raiseHp() {
