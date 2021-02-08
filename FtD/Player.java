@@ -1,4 +1,5 @@
 import greenfoot.Greenfoot;
+import greenfoot.MouseInfo;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class Player extends BaseActor implements IContainer{
         A = Greenfoot.isKeyDown("A");
         S = Greenfoot.isKeyDown("S");
         D = Greenfoot.isKeyDown("D");
-        I=Greenfoot.isKeyDown("I");
 
         if (W && !S) {
             if (D && !A) {
@@ -77,9 +77,10 @@ public class Player extends BaseActor implements IContainer{
             currentMana += manaRegen;
         }
         fixStats();
-        if(I){
-            iny.setOpen(!iny.getOpen());
-            iny.hide(iny.getOpen());
+        hide();
+        if (Greenfoot.mouseDragged(this)){
+            MouseInfo mouse=Greenfoot.getMouseInfo();
+            setLocation(mouse.getX(), mouse.getY());
         }
     }
 
@@ -110,6 +111,13 @@ public class Player extends BaseActor implements IContainer{
                 setImage("S_D.png");
                 break;
                 */
+        }
+    }
+    public void hide(){
+        String key= Greenfoot.getKey();
+        if("i".equals(key)){
+            iny.setOpen(!iny.getOpen());
+            iny.hide(iny.getOpen());
         }
     }
 
@@ -143,12 +151,27 @@ public class Player extends BaseActor implements IContainer{
         if (currentMana > manaPoint)
             currentMana = manaPoint;
     }
-    public void equipItem(Item item) {
-
-    }
 
     @Override
     public List<BaseActor> GetObiecte() {
         return new ArrayList<>(){{add(iny);}};
+    }
+    public void addItem(Item item){
+        iny.addItem(item);
+    }
+    public void dragAndDrop(){
+        String key;
+        for(int i=0;i<4;i++){
+            for(int j=0;j<6;j++){
+                key=String.format("#%s#%s",i,j);
+                if(Greenfoot.mouseClicked(iny))
+                    System.out.println("ceva");
+                if(Greenfoot.mouseDragged(iny.getSlots().get(key))){
+                    System.out.println("ceva");
+                    MouseInfo mouse=Greenfoot.getMouseInfo();
+                    iny.getSlots().get(key).getTex().setLocation(mouse.getX(),mouse.getY());
+                }
+            }
+        }
     }
 }

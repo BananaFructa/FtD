@@ -10,13 +10,13 @@ public class Inventory extends BaseActor implements IContainer{
     private boolean open=false;
 
     public Inventory() {
-      super(0,0);
+      super(300,200);
       this.setImage("background.png");
       this.getImage().scale(600,400);
-      for(int i=0;i<6;i++){
-          for(int j=0;j<4;j++){
+      for(int i=0;i<4;i++){
+          for(int j=0;j<6;j++){
               key=String.format("#%s#%s",i,j);
-              slots.put(key,new Item_nr(j*100,i*100,0));
+              slots.put(key,new Item_nr(j*100+47,i*100+47,0));
           }
       }
       hide(open);
@@ -24,26 +24,31 @@ public class Inventory extends BaseActor implements IContainer{
     public void hide(boolean a){
         int v;
         if(a) {
-            v=1;
+            v=255;
         }else
             v=0;
             this.getImage().setTransparency(v);
-            for(int i=0;i<6;i++){
-                for(int j=0;j<4;j++){
+            for(int i=0;i<4;i++){
+                for(int j=0;j<6;j++){
                     key=String.format("#%s#%s",i,j);
-                    if(slots.get(key).getTex()!=null)
-                    slots.get(key).getTex().getImage().setTransparency(v);
+                    if(slots.get(key).getTex()!=null) {
+                        slots.get(key).getTex().getImage().setTransparency(v);
+                    }
                     slots.get(key).getImage().setTransparency(v);
                 }
             }
     }
 
     public void addItem(Item item) {
-        for(int i=0;i<6;i++){
-            for(int j=0;j<4;j++){
+        boolean canAdd=true;
+        for(int i=0;i<4 && canAdd;i++){
+            for(int j=0;j<6 && canAdd;j++){
                 key=String.format("#%s#%s",i,j);
-                slots.get(key).addItem(item);
-                break;
+                if(slots.get(key).getTex()==null) {
+                    slots.get(key).addItem(item);
+                    slots.get(key).getTex().getImage().setTransparency(0);
+                    canAdd=false;
+                }
             }
         }
     }
@@ -61,8 +66,8 @@ public class Inventory extends BaseActor implements IContainer{
     public List<BaseActor> GetObiecte() {
         return new ArrayList<>(){{
             String key;
-            for(int i=0;i<6;i++){
-                for(int j=0;j<4;j++){
+            for(int i=0;i<4;i++){
+                for(int j=0;j<6;j++){
                    key=String.format("#%s#%s",i,j);
                    add(slots.get(key));
                 }

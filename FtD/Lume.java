@@ -24,8 +24,37 @@ public class Lume extends World
 
         Player test = new Player();
         test.SetViteza(new Vector2f(0.5f,0));
-
+        Item item1=new Item(0,0);
+        Item item2=new Item(0,0);
+        Item item3=new Item(0,0);
+        Item item4=new Item(0,0);
+        Item item5=new Item(0,0);
+        Item item6=new Item(0,0);
+        Item item7=new Item(0,0);
+        item1.setImage("fig.png");
+        item2.setImage("fig.png");
+        item3.setImage("fig.png");
+        item4.setImage("fig.png");
+        item5.setImage("fig.png");
+        item6.setImage("fig.png");
+        item7.setImage("fig.png");
         managerObiecte.AdaugaActor(test);
+        managerObiecte.AdaugaActor(item1);
+        managerObiecte.AdaugaActor(item2);
+        managerObiecte.AdaugaActor(item3);
+        managerObiecte.AdaugaActor(item4);
+        managerObiecte.AdaugaActor(item5);
+        managerObiecte.AdaugaActor(item6);
+        managerObiecte.AdaugaActor(item7);
+        test.addItem(item1);
+        test.addItem(item2);
+        test.addItem(item3);
+        test.addItem(item4);
+        test.addItem(item5);
+        test.addItem(item6);
+        test.addItem(item7);
+       // System.out.println(item1.getX()+" "+item1.getY());
+       // System.out.println(item2.getX()+" "+item2.getY());
 
         ProprietatiParticuleEmise ppe = new ProprietatiParticuleEmise();
         ppe.LifetimeMin = 20;
