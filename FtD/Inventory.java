@@ -51,6 +51,7 @@ public class Inventory extends UIActor implements IContainer {
                     if (!items.containsKey(key)) {
                         items.put(key ,new Item_nr(slots.get(key).getX(),slots.get(key).getY(),0));
                         items.get(key).addItem(item);
+                        items.get(key).setImage("fig.png");
                         items.get(key).getImage().setTransparency(0);
                         canAdd = false;
                     }

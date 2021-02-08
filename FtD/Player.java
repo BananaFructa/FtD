@@ -112,13 +112,15 @@ public class Player extends BaseActor {
             System.out.println("pog");
         }
     }
-    public void updateInventory(){
+    public void updateInventory() {
         String key;
-        for(int i=0;i<4;i++){
-            for(int j=0;j<6;j++){
-                key=String.format("#%s#%s",i,j);
-                Item item= info.get(key);
-                Interfete.Inventar.getItems().get(key).setTex(item);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                key = String.format("#%s#%s", i, j);
+                if (info.containsKey(key)) {
+                    Item item = info.get(key);
+                    Interfete.Inventar.getItems().get(key).setTex(item);
+                }
             }
         }
     }
