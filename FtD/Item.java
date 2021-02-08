@@ -12,7 +12,7 @@ public class Item {
     private int manaGain;
     private String clasa;// Wand Robe Hat Boots Ring Potion
 
-    public Item(float x, float y ){
+    public Item(){
 
     }
 

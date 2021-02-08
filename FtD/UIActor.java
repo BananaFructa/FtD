@@ -42,5 +42,9 @@ public class UIActor extends Actor {
     public void Init() {
         this.setLocation((int)Pozitie.x,(int)Pozitie.y);
     }
-
+    public void setPozitie(float x,float y){
+        this.Pozitie.x=x;
+        this.Pozitie.y=y;
+        setLocation((int)Pozitie.x,(int)Pozitie.y);
+    }
 }

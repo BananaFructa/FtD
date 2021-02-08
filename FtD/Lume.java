@@ -28,16 +28,17 @@ public class Lume extends World
         Instanta = this;
         managerObiecte.Init();
         Interfete.Init();
-
-        Player test = new Player();
-        test.SetViteza(new Vector2f(0.5f,0));
-        ItemInfo item1=new ItemInfo();
-        ItemInfo item2=new ItemInfo();
-        ItemInfo item3=new ItemInfo();
-        ItemInfo item4=new ItemInfo();
-        ItemInfo item5=new ItemInfo();
-        ItemInfo item6=new ItemInfo();
-        ItemInfo item7=new ItemInfo();
+        Item item1=new Item();
+        Item item2=new Item();
+        Item item3=new Item();
+        Item item4=new Item();
+        Item item5=new Item();
+        Item item6=new Item();
+        Item item7=new Item();
+       // System.out.println(item1.getX()+" "+item1.getY());
+       // System.out.println(item2.getX()+" "+item2.getY());
+        player = new Player();
+        player.SetViteza(new Vector2f(0.5f,0));
         player.addItem(item1);
         player.addItem(item2);
         player.addItem(item3);
@@ -45,10 +46,6 @@ public class Lume extends World
         player.addItem(item5);
         player.addItem(item6);
         player.addItem(item7);
-       // System.out.println(item1.getX()+" "+item1.getY());
-       // System.out.println(item2.getX()+" "+item2.getY());
-        player = new Player();
-        player.SetViteza(new Vector2f(0.5f,0));
 
         managerObiecte.AdaugaActor(player);
 

@@ -24,9 +24,9 @@ public class Player extends BaseActor {
     private int def;
     private int dmg;
     private int critChance;//only by items
-    private HashMap<String, ItemInfo> info=new HashMap<>();
+    private HashMap<String, Item> info=new HashMap<>();
 
-    public Item[][] Inventar = new Item[4][6];
+    //public Item[][] Inventar = new Item[4][6];
 
     public Player() {
         super(0, 0);
@@ -51,6 +51,7 @@ public class Player extends BaseActor {
         fixStats();
 
         if(I){
+            updateInventory();
             Interfete.Inventar.Toggle();
         }
     }
@@ -111,20 +112,22 @@ public class Player extends BaseActor {
             System.out.println("pog");
         }
     }
-    public void addItem(ItemInfo item) {
-        boolean canAdd=true;
+    public void updateInventory(){
         String key;
-        for(int i=0;i<4 && canAdd;i++){
-            for(int j=0;j<6 && canAdd;j++){
+        for(int i=0;i<4;i++){
+            for(int j=0;j<6;j++){
                 key=String.format("#%s#%s",i,j);
-                if(info.get(key)==null) {
-                    info.put(key, item);
-                    canAdd=false;
-                }
+                Item item= info.get(key);
+                Interfete.Inventar.getItems().get(key).setTex(item);
             }
         }
     }
 
+    public BaseActor setItem(Item item){
+        BaseActor ceva=new BaseActor(0,0);
+        ceva.setImage("fig.png");
+        return ceva;
+    }
     public void setareTextureDinDirectie(Directie s) {
         switch (s) {
             case SUS:
@@ -207,7 +210,7 @@ public class Player extends BaseActor {
                 if (Greenfoot.mouseDragged(Interfete.Inventar.getSlots().get(key))) {
                     System.out.println("ceva");
                     MouseInfo mouse = Greenfoot.getMouseInfo();
-                    Interfete.Inventar.getSlots().get(key).getTex().setLocation(mouse.getX(), mouse.getY());
+                    Interfete.Inventar.getItems().get(key).setPozitie(mouse.getX(), mouse.getY());
                 }
             }
         }

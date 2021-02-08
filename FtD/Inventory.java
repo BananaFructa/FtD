@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Inventory extends UIActor implements IContainer {
     private Map<String , Item_nr> slots=new HashMap<>();
+    private Map<String ,Item_nr> items=new HashMap<>();
     private String key ="";
     private int nr=0;
 
@@ -33,27 +34,30 @@ public class Inventory extends UIActor implements IContainer {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
                 key = String.format("#%s#%s", i, j);
-                if (slots.get(key).getTex() != null) {
-                    slots.get(key).getTex().getImage().setTransparency(v);
+                if (items.get(key)!= null) {
+                    items.get(key).getImage().setTransparency(v);
                 }
                 slots.get(key).getImage().setTransparency(v);
             }
         }
     }
 
-//    public void addItem(Item item) {
-//        boolean canAdd=true;
-//        for(int i=0;i<4 && canAdd;i++){
-//            for(int j=0;j<6 && canAdd;j++){
-//                key=String.format("#%s#%s",i,j);
-//                if(slots.get(key).getTex()==null) {
-//                    slots.get(key).addItem(item);
-//                    slots.get(key).getTex().getImage().setTransparency(0);
-//                    canAdd=false;
-//                }
-//            }
-//        }
-//    }
+    public void addItem(Item item) {
+        boolean canAdd=true;
+        if(item !=null) {
+            for (int i = 0; i < 4 && canAdd; i++) {
+                for (int j = 0; j < 6 && canAdd; j++) {
+                    key = String.format("#%s#%s", i, j);
+                    if (!items.containsKey(key)) {
+                        items.put(key ,new Item_nr(slots.get(key).getX(),slots.get(key).getY(),0));
+                        items.get(key).addItem(item);
+                        items.get(key).getImage().setTransparency(0);
+                        canAdd = false;
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void Deschide() {
@@ -68,6 +72,9 @@ public class Inventory extends UIActor implements IContainer {
     public Map<String , Item_nr> getSlots(){
         return this.slots;
     }
+    public Map<String , Item_nr> getItems(){
+        return this.items;
+    }
 
     @Override
     public List<Actor> GetObiecte() {
@@ -77,6 +84,8 @@ public class Inventory extends UIActor implements IContainer {
                 for(int j=0;j<6;j++){
                    key=String.format("#%s#%s",i,j);
                    add(slots.get(key));
+                   if(items.containsKey(key))
+                   add(items.get(key));
                 }
             }
         }};
