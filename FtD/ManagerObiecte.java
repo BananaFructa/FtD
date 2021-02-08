@@ -37,6 +37,9 @@ public class ManagerObiecte {
             for (BaseActor actor : Actori) {
                 actor.Update();
             }
+            for (UIActor actor : Interfete) {
+                actor.Update();
+            }
         } catch (ConcurrentModificationException exception) {
             // Nu conteaza
         }
@@ -51,10 +54,6 @@ public class ManagerObiecte {
         }
         ActoriDeAdaugat.clear();
         ActoriDeDistrus.clear();
-
-        for (UIActor actor : Interfete) {
-            actor.Update();
-        }
     }
 
     public void AdaugaActor(BaseActor actor) {
