@@ -34,9 +34,11 @@ public class Inventory extends UIActor implements IContainer {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
                 key = String.format("#%s#%s", i, j);
-                if (items.get(key)!= null) {
+                if (items.containsKey(key)) {
                     items.get(key).getImage().setTransparency(v);
+                   // System.out.print(key+" ");
                 }
+               // System.out.println();
                 slots.get(key).getImage().setTransparency(v);
             }
         }
@@ -44,7 +46,6 @@ public class Inventory extends UIActor implements IContainer {
 
     public void addItem(Item item) {
         boolean canAdd=true;
-        if(item !=null) {
             for (int i = 0; i < 4 && canAdd; i++) {
                 for (int j = 0; j < 6 && canAdd; j++) {
                     key = String.format("#%s#%s", i, j);
@@ -52,12 +53,18 @@ public class Inventory extends UIActor implements IContainer {
                         items.put(key ,new Item_nr(slots.get(key).getX(),slots.get(key).getY(),0));
                         items.get(key).addItem(item);
                         items.get(key).setImage("fig.png");
+                        items.get(key).getImage().scale(90,90);
+                        items.get(key).setPozitie(slots.get(key).getX(),slots.get(key).getY());
+                       // System.out.println("itemmmmmm");
+                       System.out.println(slots.get(key).getX()+" "+slots.get(key).getY());
+                        System.out.println(items.get(key).getY()+" "+items.get(key).getY());
+//                        System.out.println();
                         items.get(key).getImage().setTransparency(0);
                         canAdd = false;
                     }
                 }
             }
-        }
+
     }
 
     @Override
