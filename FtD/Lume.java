@@ -71,7 +71,9 @@ public class Lume extends World
         Lume.Instanta.CameraPosition = player.Pozitie.Scade(new Vector2f(this.getWidth()/2f,this.getHeight()/2f));
         if (Greenfoot.mousePressed(this)) {
             inputMouse.SetApasat(true);
+            inputMouse.SetPos(new Vector2f((float)Greenfoot.getMouseInfo().getX(),(float)Greenfoot.getMouseInfo().getY()));
             inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
+            Lume.Instanta.inputMouse.UIClick = false;
         }
     }
 }

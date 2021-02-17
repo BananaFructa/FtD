@@ -1,13 +1,15 @@
 public class ProprietatiProiectil {
-    float Damage;
-    float Knockback;
-    float Viteza;
-    int Lifetime;
+    public float Damage;
+    public float Knockback;
+    public float Viteza;
+    public int Lifetime;
+    public String tex;
 
-    public ProprietatiProiectil(float Damage,float Knockback,float Viteza,int Lifetime) {
+    public ProprietatiProiectil(float Damage,float Knockback,float Viteza,int Lifetime,String tex) {
         this.Damage = Damage;
         this.Knockback = Knockback;
         this.Viteza = Viteza;
         this.Lifetime = Lifetime;
+        this.tex = tex;
     }
 }

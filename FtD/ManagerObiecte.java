@@ -3,13 +3,12 @@ import java.util.*;
 public class ManagerObiecte {
 
     private static boolean Updateaza = true;
-    private final int UpdateDelay = 50;
+    private final int UpdateDelay = 50; // 20 de ori pe secunda
 
     public static List<UIActor> Interfete = new ArrayList<>();
 
-    public static List<BaseActor> Actori = new ArrayList<>();
-    private static List<BaseActor> ActoriDeAdaugat = new ArrayList<>();
-    private static List<BaseActor> ActoriDeDistrus = new ArrayList<>();
+    public static ContainerCuBuffer<BaseActor> Actori = new ContainerCuBuffer<>();
+    public static ContainerCuBuffer<Animatie> Animatii = new ContainerCuBuffer<>();
 
     public void Init() {
         Thread UpdateThread = new Thread(new Runnable() {
@@ -35,45 +34,57 @@ public class ManagerObiecte {
     }
 
     public void Update() {
-        try {
-            for (BaseActor actor : Actori) {
-                actor.Update();
+        synchronized (this) {
+            try {
+                for (BaseActor actor : Actori.Normal) {
+                    actor.Update();
+                }
+                for (UIActor actor : Interfete) {
+                    actor.Update();
+                }
+            } catch (ConcurrentModificationException exception) {
+
             }
-            for (UIActor actor : Interfete) {
-                actor.Update();
+
+            Actori.CompleteazaTranzactiile();
+            for (BaseActor actor : Actori.Adauga) {
+                Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
+                actor.Init();
             }
-        } catch (ConcurrentModificationException exception) {
-            // Nu conteaza
+            for (BaseActor actor : Actori.Elimina) {
+                Lume.Instanta.removeObject(actor);
+            }
+            Actori.StergeBufferele();
+
+            Animatii.CompleteazaTranzactiile();
+            Animatii.StergeBufferele();
+
+            for (Animatie animatie : Animatii.Normal) {
+                animatie.Next();
+            }
+
         }
-        Actori.addAll(ActoriDeAdaugat);
-        Actori.removeAll(ActoriDeDistrus);
-        for (BaseActor actor : ActoriDeAdaugat) {
-            Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
-            actor.Init();
-        }
-        for (BaseActor actor : ActoriDeDistrus) {
-            Lume.Instanta.removeObject(actor);
-        }
-        ActoriDeAdaugat.clear();
-        ActoriDeDistrus.clear();
     }
 
     public void AdaugaActor(BaseActor actor) {
-        ActoriDeAdaugat.add(actor);
+        Actori.Adauga(actor);
         if (actor instanceof IContainer) {
-            List<BaseActor> subActori = (List<BaseActor>)(List<?>)((IContainer) actor).GetObiecte();
+           // System.out.println("A");
+            List<BaseActor> subActori = (List<BaseActor>) (List<?>) ((IContainer) actor).GetObiecte();
             for (BaseActor a : subActori) {
                 AdaugaActor(a);
             }
         }
+
     }
 
     public void DisterugeActor(BaseActor actor) {
-        ActoriDeDistrus.add(actor);
+        Actori.Elimina(actor);
         if (actor instanceof IContainer) {
-            List<BaseActor> subActori = (List<BaseActor>)(List<?>)((IContainer) actor).GetObiecte();
+            List<BaseActor> subActori = (List<BaseActor>) (List<?>) ((IContainer) actor).GetObiecte();
             for (BaseActor a : subActori) {
                 DisterugeActor(a);
+                System.out.println("B");
             }
         }
     }
@@ -95,5 +106,13 @@ public class ManagerObiecte {
             Interfete.remove(actor);
             Lume.Instanta.removeObject(actor);
         }
+    }
+
+    public void InregistreazaAnimatie(Animatie animatie) {
+        Animatii.Adauga(animatie);
+    }
+
+    public void DistrugeAnimatie(Animatie animatie) {
+        Animatii.Elimina(animatie);
     }
 }

@@ -1,15 +1,18 @@
 import greenfoot.Greenfoot;
 import greenfoot.MouseInfo;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Player extends BaseActor {
 
     private final float Radical2Pe2 = (float) Math.sqrt(2) / 2f;
-    private Directie orientare;
+    private Directie orientare = Directie.DREAPTA;
+
+    private Animatie MergeDreapta = new Animatie(DateAnimatii.PLAYER_WALKING_RIGHT,this);
+    private Animatie MergeStanga = new Animatie(DateAnimatii.PLAYER_WALKING_LEFT,this);
+    private Animatie MergeSus = new Animatie(DateAnimatii.PLAYER_WALKING_UP,this);
+    private Animatie MergeJos = new Animatie(DateAnimatii.PLAYER_WALKING_DOWN,this);
+
     private Item hat;
     private Item robe;
     private Item boots;
@@ -24,14 +27,13 @@ public class Player extends BaseActor {
     private int def;
     private int dmg;
     private int critChance;//only by items
-    private HashMap<String, Item> info=new HashMap<>();
-    private boolean LastOpenedInventory = false;
 
-    //public Item[][] Inventar = new Item[4][6];
+    private HashMap<String, Item> info =new HashMap<>();
+    public Item[] Inventar = new Item[24];
+    private boolean LastOpenedInventory = false;
 
     public Player() {
         super(0, 0);
-        this.setImage("bruh.jpg");
     }
 
     @Override
@@ -52,7 +54,7 @@ public class Player extends BaseActor {
         fixStats();
 
         if(I){
-            updateInventory();
+            setInvetoryItemTextures();
             Interfete.Inventar.Toggle();
         }
     }
@@ -64,6 +66,9 @@ public class Player extends BaseActor {
         A = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.A);
         S = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.S);
         D = Lume.Instanta.inputKeyboard.EsteApasat(InputKeyboard.Key.D);
+
+        boolean merge = false;
+
         if (W && !S) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2, -Radical2Pe2);
@@ -75,6 +80,7 @@ public class Player extends BaseActor {
                 Viteza = new Vector2f(0, -1);
                 orientare = Directie.SUS;
             }
+            merge = true;
         } else if (A && !D) {
             if (S && !W) {
                 Viteza = new Vector2f(-Radical2Pe2, Radical2Pe2);
@@ -82,6 +88,7 @@ public class Player extends BaseActor {
                 Viteza = new Vector2f(-1, 0);
             }
             orientare = Directie.STANGA;
+            merge = true;
         } else if (S && !W) {
             if (D && !A) {
                 Viteza = new Vector2f(Radical2Pe2, Radical2Pe2);
@@ -90,16 +97,40 @@ public class Player extends BaseActor {
                 Viteza = new Vector2f(0, 1);
                 orientare = Directie.JOS;
             }
+            merge = true;
         } else if (D && !A) {
             Viteza = new Vector2f(1, 0);
             orientare = Directie.DREAPTA;
+            merge = true;
         }
+
+        if (merge) {
+            if (orientare == Directie.STANGA) MergeStanga.Start();
+            else MergeStanga.Stop();
+
+            if (orientare == Directie.DREAPTA) MergeDreapta.Start();
+            else MergeDreapta.Stop();
+
+            if (orientare == Directie.SUS) MergeSus.Start();
+            else MergeSus.Stop();
+        } else {
+            MergeStanga.Stop();
+            MergeSus.Stop();
+            MergeDreapta.Stop();
+            if (orientare == Directie.STANGA) this.setImage("player/character_looking_left.png");
+            if (orientare == Directie.DREAPTA) this.setImage("player/character_looking_right.png");
+            //if (orientare == Directie.JOS) this.setImage("player/character_looking_down.png");
+            if (orientare == Directie.SUS) this.setImage("player/character_looking_up.png");
+        }
+
+
         if (regenHp()) {
             currentHp += hpRegen;
         }
         if (regenMana()) {
             currentMana += manaRegen;
         }
+
         fixStats();
         hide();
         if (Greenfoot.mouseDragged(this)) {
@@ -109,11 +140,17 @@ public class Player extends BaseActor {
     }
 
     public void UpdateActiune() {
-        if (Lume.Instanta.inputMouse.Apasat()) {
-            System.out.println("pog");
+        if (Lume.Instanta.inputMouse.Apasat() && !Lume.Instanta.inputMouse.UIClick) {
+            int w = Lume.Instanta.getWidth() >> 1;
+            int h = Lume.Instanta.getHeight() >> 1;
+            int x = (int)Lume.Instanta.inputMouse.Pozitie.x;
+            int y = (int)Lume.Instanta.inputMouse.Pozitie.y;
+            float Unghi = (float)Math.PI/2f-(float)Math.atan((float)(w-x)/(float)(h-y)) + (y > h ? (float)Math.PI : 0);
+            Lume.Instanta.managerObiecte.AdaugaActor(new Proiectil((int)Pozitie.x,(int)Pozitie.y,Unghi,DateParticule.SistemTest,DateProiectil.ProiectilTest));
         }
     }
-    public void updateInventory() {
+
+    public void setInvetoryItemTextures() {
         String key;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
