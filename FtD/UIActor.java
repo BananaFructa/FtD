@@ -1,5 +1,6 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
+import greenfoot.GreenfootImage;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class UIActor extends Actor {
     }
 
     public void Deschide() {
-        this.setLocation((int)this.Pozitie.x,(int)this.Pozitie.y);
+        this.setLocation((int)this.Pozitie.x+ this.getImage().getWidth() / 2,(int)this.Pozitie.y+ this.getImage().getHeight() / 2);
         this.getImage().setTransparency(255);
         if (this instanceof IContainer) {
             List<UIActor> subInterfete = (List<UIActor>)(List<?>)((IContainer) this).GetObiecte();
@@ -51,6 +52,11 @@ public class UIActor extends Actor {
                 i.Inchide();
             }
         }
+    }
+
+    public void Resize(int w, int h) {
+        this.getImage().scale(w,h);
+        this.setLocation((int)this.Pozitie.x + w/2,(int)this.Pozitie.y + h/2);
     }
 
     public void Toggle() {

@@ -54,7 +54,6 @@ public class Player extends BaseActor {
         fixStats();
 
         if(I){
-            setInvetoryItemTextures();
             Interfete.Inventar.Toggle();
         }
     }
@@ -150,39 +149,10 @@ public class Player extends BaseActor {
         }
     }
 
-    public void setInvetoryItemTextures() {
-        String key;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
-                key = String.format("#%s#%s", i, j);
-                if (info.containsKey(key)) {
-                    Item item = info.get(key);
-                    Interfete.Inventar.getItems().get(key).setTex(item);
-                }
-            }
-        }
-    }
-
     public BaseActor setItem(Item item){
         BaseActor ceva=new BaseActor(0,0);
         ceva.setImage("fig.png");
         return ceva;
-    }
-    public void setareTextureDinDirectie(Directie s) {
-        switch (s) {
-            case SUS:
-                setImage("W.png");
-                break;
-            case STANGA:
-                setImage("A.png");
-                break;
-            case JOS:
-                setImage("S.png");
-                break;
-            case DREAPTA:
-                setImage("D.png");
-                break;
-        }
     }
 
     public void hide() {
@@ -223,24 +193,14 @@ public class Player extends BaseActor {
             currentMana = manaPoint;
     }
 
-    public void addItem(Item item){
-        Interfete.Inventar.addItem(item);
-    }
-
-    public void dragAndDrop() {
-        String key;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
-                key = String.format("#%s#%s", i, j);
-                if (Greenfoot.mouseClicked(Interfete.Inventar))
-                    System.out.println("ceva");
-                if (Greenfoot.mouseDragged(Interfete.Inventar.getSlots().get(key))) {
-                    System.out.println("ceva");
-                    MouseInfo mouse = Greenfoot.getMouseInfo();
-                    Interfete.Inventar.getItems().get(key).setPozitie(mouse.getX(), mouse.getY());
-                }
+    public boolean addItem(Item item){
+        for (int i =0;i < 24;i++) {
+            if (Inventar[i] == null) {
+                Inventar[i] = item;
+                return true;
             }
         }
+        return false;
     }
 
     public void equipItem(Item item) {

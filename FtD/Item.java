@@ -1,5 +1,6 @@
 public class Item {
 
+    public String tex = "fig.png";
     private int dmg = 0;
     private int manaDrain = 0;
     private int manaPoint = 0;

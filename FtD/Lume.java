@@ -44,17 +44,9 @@ public class Lume extends World
        // System.out.println(item2.getX()+" "+item2.getY());
         player = new Player();
         player.SetViteza(new Vector2f(0.5f,0));
-        player.addItem(item1);
-        player.addItem(item2);
-        player.addItem(item3);
-        player.addItem(item4);
-        player.addItem(item5);
-        player.addItem(item6);
-        player.addItem(item7);
+        for (int i = 0;i< 24;i++)player.addItem(item1);
 
         managerObiecte.AdaugaActor(player);
-
-        managerObiecte.AdaugaActor(new SistemParticule(40,40,DateParticule.SistemTest,0,0,-1));
 
     }
 
