@@ -29,7 +29,9 @@ public class Player extends BaseActor {
     private int critChance;//only by items
 
     private HashMap<String, Item> info =new HashMap<>();
+
     public Item[] Inventar = new Item[24];
+
     private boolean LastOpenedInventory = false;
 
     public Player() {
@@ -131,7 +133,11 @@ public class Player extends BaseActor {
         }
 
         fixStats();
-        hide();
+
+        if(Lume.Instanta.inputKeyboard.ApasatInstantaneu(InputKeyboard.Key.I)){
+            Interfete.Inventar.Toggle();
+        }
+
         if (Greenfoot.mouseDragged(this)) {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             setLocation(mouse.getX(), mouse.getY());
@@ -149,17 +155,8 @@ public class Player extends BaseActor {
         }
     }
 
-    public BaseActor setItem(Item item){
-        BaseActor ceva=new BaseActor(0,0);
-        ceva.setImage("fig.png");
-        return ceva;
-    }
-
-    public void hide() {
-        boolean hide = Lume.Instanta.inputKeyboard.ApasatInstantaneu(InputKeyboard.Key.I);
-        if(hide){
-            Interfete.Inventar.Toggle();
-        }
+    public void SetItem(int idx,Item item) {
+        this.Inventar[idx] = item;
     }
 
     public void raiseHp() {

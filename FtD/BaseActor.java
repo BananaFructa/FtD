@@ -48,6 +48,7 @@ public class BaseActor extends Actor {
         if (Greenfoot.mousePressed(this)) {
             Lume.Instanta.inputMouse.SetApasat(true);
             Lume.Instanta.inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
+            Lume.Instanta.inputMouse.SetObiect(this);
         }
         this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)).Scade(Lume.Instanta.CameraPosition));
     }

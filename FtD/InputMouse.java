@@ -1,9 +1,18 @@
+import greenfoot.Actor;
+
 public class InputMouse {
 
     public Vector2f Pozitie;
     public Boolean EsteApasat = false;
     public boolean UIClick = false;
     public int Button = -1;
+    public Actor Obiect;
+
+    public void SetObiect(Actor actor) {
+        synchronized (this) {
+            Obiect = actor;
+        }
+    }
 
     public void SetButton(int button) {
         synchronized (this) {

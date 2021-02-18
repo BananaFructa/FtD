@@ -1,18 +1,36 @@
 import greenfoot.Actor;
+import greenfoot.Greenfoot;
 
 import java.util.*;
 
 public class UIInventory extends UIActor implements IContainer {
 
-    private UIActor[] TexturiIteme = new UIActor[24];
+    private final UISlot[] TexturiIteme = new UISlot[24];
+    UISlot CursorSlot = new UISlot(-9999,-9999,25,this);
+    int cursorX = 0,cursorY = 0;
 
     public UIInventory() {
         super(0, 0);
+        CursorSlot.SetItem(new Item());
         this.setImage("background.png");
         this.getImage().scale((int)(200*2),(int)(116*2));
         for (int i = 0;i < 24;i++) {
-            TexturiIteme[i] = new UIActor((int)(i%6*58.5+41),(int)(i/6*53.7+21));
-            TexturiIteme[i].setImage("null.png");
+            TexturiIteme[i] = new UISlot((int)(i%6*58.5+41),(int)(i/6*53.7+21),i,this);
+            TexturiIteme[i].SetItem(null);
+        }
+    }
+
+    @Override
+    public void Update() {
+    }
+
+    @Override
+    public void act() {
+        super.act();
+        if (Deschis) {
+            cursorX = (int) Lume.Instanta.inputMouse.Pozitie.x;
+            cursorY = (int) Lume.Instanta.inputMouse.Pozitie.y;
+            CursorSlot.setPozitie(cursorX-24, cursorY-24);
         }
     }
 
@@ -25,12 +43,7 @@ public class UIInventory extends UIActor implements IContainer {
     public void UpdateTexturi() {
         Item[] inv = Lume.Instanta.player.Inventar;
         for (int i = 0;i < 24;i++) {
-            if (inv[i] == null) {
-                TexturiIteme[i].setImage("null.png");
-            } else {
-                TexturiIteme[i].setImage(inv[i].tex);
-                TexturiIteme[i].getImage().scale(12*2,12*2);
-            }
+            TexturiIteme[i].SetItem(inv[i]);
         }
     }
 
@@ -38,6 +51,7 @@ public class UIInventory extends UIActor implements IContainer {
     public List<Actor> GetObiecte() {
         return new ArrayList<Actor>() {{
             addAll(Arrays.asList(TexturiIteme.clone()));
+            add(CursorSlot);
         }};
     }
 }

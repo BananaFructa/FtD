@@ -44,7 +44,7 @@ public class Lume extends World
        // System.out.println(item2.getX()+" "+item2.getY());
         player = new Player();
         player.SetViteza(new Vector2f(0.5f,0));
-        for (int i = 0;i< 24;i++)player.addItem(item1);
+        for (int i = 0;i< 1;i++)player.addItem(item1);
 
         managerObiecte.AdaugaActor(player);
 
@@ -60,12 +60,16 @@ public class Lume extends World
             SystemTime = System.currentTimeMillis();
         }
         FpsNumarator++;
+        if (Greenfoot.getMouseInfo() != null) {
+            inputMouse.SetPos(new Vector2f((float) Greenfoot.getMouseInfo().getX(), (float) Greenfoot.getMouseInfo().getY()));
+        }
         Lume.Instanta.CameraPosition = player.Pozitie.Scade(new Vector2f(this.getWidth()/2f,this.getHeight()/2f));
         if (Greenfoot.mousePressed(this)) {
             inputMouse.SetApasat(true);
-            inputMouse.SetPos(new Vector2f((float)Greenfoot.getMouseInfo().getX(),(float)Greenfoot.getMouseInfo().getY()));
             inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
-            Lume.Instanta.inputMouse.UIClick = false;
+            inputMouse.UIClick = false;
+            inputMouse.SetObiect(null);
+
         }
     }
 }

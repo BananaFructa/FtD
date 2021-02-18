@@ -20,6 +20,7 @@ public class UIActor extends Actor {
             Lume.Instanta.inputMouse.SetApasat(true);
             Lume.Instanta.inputMouse.SetPos(new Vector2f((float)Greenfoot.getMouseInfo().getX(),(float)Greenfoot.getMouseInfo().getY()));
             Lume.Instanta.inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
+            Lume.Instanta.inputMouse.SetObiect(this);
             Lume.Instanta.inputMouse.UIClick = BlocheazaClick;
         }
     }
