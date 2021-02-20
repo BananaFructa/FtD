@@ -18,7 +18,7 @@ public class SistemParticule extends BaseActor implements IContainer {
         this.NumarParticule = proprietatiParticuleEmise.NumarParticule;
         this.Viteza = new Vector2f((float)Math.cos(Unghi - Math.PI),(float)Math.sin(Unghi - Math.PI)).MultiplicaScalar(Viteza);
         for (int i = 0;i < NumarParticule;i += 1) {
-            Particula p = new Particula(this.Pozitie,proprietatiParticuleEmise.GenereazaViteza(Unghi),proprietatiParticuleEmise.GenereazaLifetime());
+            Particula p = new Particula(proprietatiParticuleEmise.tex,this.Pozitie,proprietatiParticuleEmise.GenereazaViteza(Unghi),proprietatiParticuleEmise.GenereazaLifetime());
             Particule.add(p);
         }
         this.Lifetime = Lifetime;

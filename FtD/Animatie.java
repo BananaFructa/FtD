@@ -21,7 +21,7 @@ public class Animatie {
             if (cadru == Info.fps) {
                 cadru = 0;
                 IDX++;
-                if (Info.secventa.length == IDX) IDX = 0;
+                if (Info.secventa.length <= IDX) IDX = 0;
                 parent.setImage(Info.secventa[IDX]);
             }
         }
@@ -31,7 +31,7 @@ public class Animatie {
         if (!Ruleaza) {
             Ruleaza = true;
             parent.setImage(Info.secventa[0]);
-            cadru = 1;
+            cadru = 0;
         }
     }
 

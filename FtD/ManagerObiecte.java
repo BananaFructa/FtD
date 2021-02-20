@@ -42,27 +42,26 @@ public class ManagerObiecte {
                 for (UIActor actor : Interfete) {
                     actor.Update();
                 }
+
+                Actori.CompleteazaTranzactiile();
+                for (BaseActor actor : Actori.Adauga) {
+                    Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
+                    actor.Init();
+                }
+                for (BaseActor actor : Actori.Elimina) {
+                    Lume.Instanta.removeObject(actor);
+                }
+                Actori.StergeBufferele();
+
+                Animatii.CompleteazaTranzactiile();
+                Animatii.StergeBufferele();
+
+                for (Animatie animatie : Animatii.Normal) {
+                    animatie.Next();
+                }
             } catch (ConcurrentModificationException exception) {
 
             }
-
-            Actori.CompleteazaTranzactiile();
-            for (BaseActor actor : Actori.Adauga) {
-                Lume.Instanta.addObject(actor, (int) actor.Pozitie.x, (int) actor.Pozitie.y);
-                actor.Init();
-            }
-            for (BaseActor actor : Actori.Elimina) {
-                Lume.Instanta.removeObject(actor);
-            }
-            Actori.StergeBufferele();
-
-            Animatii.CompleteazaTranzactiile();
-            Animatii.StergeBufferele();
-
-            for (Animatie animatie : Animatii.Normal) {
-                animatie.Next();
-            }
-
         }
     }
 
@@ -84,7 +83,6 @@ public class ManagerObiecte {
             List<BaseActor> subActori = (List<BaseActor>) (List<?>) ((IContainer) actor).GetObiecte();
             for (BaseActor a : subActori) {
                 DisterugeActor(a);
-                System.out.println("B");
             }
         }
     }

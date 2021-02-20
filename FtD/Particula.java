@@ -3,11 +3,13 @@ public class Particula extends BaseActor {
 
     public int Lifetime;
     private boolean ImageSet = false;
+    String tex;
 
-    public Particula(Vector2f pos, Vector2f viteza, int Lifetime) {
+    public Particula(String tex,Vector2f pos, Vector2f viteza, int Lifetime) {
         super(pos);
         this.Viteza = viteza;
         this.Lifetime = Lifetime;
+        this.tex = tex;
         this.setImage("null.png");
     }
 
@@ -21,7 +23,7 @@ public class Particula extends BaseActor {
         this.Viteza = Viteza;
         this.Lifetime = Lifetime;
         if (!ImageSet) {
-            this.setImage("particula_test.png");
+            this.setImage(tex);
             ImageSet = true;
         }
     }

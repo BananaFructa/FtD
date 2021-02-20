@@ -8,25 +8,18 @@ public class Player extends BaseActor {
     private final float Radical2Pe2 = (float) Math.sqrt(2) / 2f;
     private Directie orientare = Directie.DREAPTA;
 
+    private long TicksSinceLastShoot = 9999;
+    private long TicksSinceLastHPRegen = 9999;
+
     private Animatie MergeDreapta = new Animatie(DateAnimatii.PLAYER_WALKING_RIGHT,this);
     private Animatie MergeStanga = new Animatie(DateAnimatii.PLAYER_WALKING_LEFT,this);
     private Animatie MergeSus = new Animatie(DateAnimatii.PLAYER_WALKING_UP,this);
     private Animatie MergeJos = new Animatie(DateAnimatii.PLAYER_WALKING_DOWN,this);
 
-    private Item hat;
-    private Item robe;
-    private Item boots;
-    private Item wand;
-    private int maxHp;
-    private int currentHp;
-    private int manaPoint;
-    private int currentMana;
-    private int manaRegen;//only by items
-    private int hpRegen;//only by items
-    private int lvl;
-    private int def;
-    private int dmg;
-    private int critChance;//only by items
+    public int maxHp = 100;
+    public int maxMp = 200;
+    public int currentHp = 100;
+    public int currentMana = 100;
 
     private HashMap<String, Item> info =new HashMap<>();
 
@@ -40,17 +33,23 @@ public class Player extends BaseActor {
 
     @Override
     public void Update() {
+        super.Update();
+
+        TicksSinceLastShoot++;
+        TicksSinceLastHPRegen++;
+
         boolean I;
         I=Greenfoot.isKeyDown("I");
 
         UpdateControl();
         UpdateActiune();
 
-        if (regenHp()) {
-            currentHp += hpRegen;
+        if (regenHp() && TicksSinceLastHPRegen > 3) {
+            currentHp += 1;
+            TicksSinceLastHPRegen = 0;
         }
         if (regenMana()) {
-            currentMana += manaRegen;
+            currentMana += 1;
         }
 
         fixStats();
@@ -124,16 +123,6 @@ public class Player extends BaseActor {
             if (orientare == Directie.SUS) this.setImage("player/character_looking_up.png");
         }
 
-
-        if (regenHp()) {
-            currentHp += hpRegen;
-        }
-        if (regenMana()) {
-            currentMana += manaRegen;
-        }
-
-        fixStats();
-
         if(Lume.Instanta.inputKeyboard.ApasatInstantaneu(InputKeyboard.Key.I)){
             Interfete.Inventar.Toggle();
         }
@@ -146,12 +135,16 @@ public class Player extends BaseActor {
 
     public void UpdateActiune() {
         if (Lume.Instanta.inputMouse.Apasat() && !Lume.Instanta.inputMouse.UIClick) {
-            int w = Lume.Instanta.getWidth() >> 1;
-            int h = Lume.Instanta.getHeight() >> 1;
-            int x = (int)Lume.Instanta.inputMouse.Pozitie.x;
-            int y = (int)Lume.Instanta.inputMouse.Pozitie.y;
-            float Unghi = (float)Math.PI/2f-(float)Math.atan((float)(w-x)/(float)(h-y)) + (y > h ? (float)Math.PI : 0);
-            Lume.Instanta.managerObiecte.AdaugaActor(new Proiectil((int)Pozitie.x,(int)Pozitie.y,Unghi,DateParticule.SistemTest,DateProiectil.ProiectilTest));
+            if (Inventar[0] != null && Inventar[0].AttackSpeed < TicksSinceLastShoot && currentMana >= Inventar[0].ManaCost && Inventar[0].Attacks) {
+                TicksSinceLastShoot = 0;
+                currentMana -= Inventar[0].ManaCost;
+                int w = Lume.Instanta.getWidth() >> 1;
+                int h = Lume.Instanta.getHeight() >> 1;
+                int x = (int) Lume.Instanta.inputMouse.Pozitie.x;
+                int y = (int) Lume.Instanta.inputMouse.Pozitie.y;
+                float Unghi = (float) Math.PI / 2f - (float) Math.atan((float) (w - x) / (float) (h - y)) + (y > h ? (float) Math.PI : 0);
+                Lume.Instanta.managerObiecte.AdaugaActor(new Proiectil((int) Pozitie.x, (int) Pozitie.y, Unghi, Inventar[0].ppe, Inventar[0].pp));
+            }
         }
     }
 
@@ -159,41 +152,25 @@ public class Player extends BaseActor {
         this.Inventar[idx] = item;
     }
 
-    public void raiseHp() {
-        maxHp += 10;
-    }
-
-    public void raiseMana() {
-        manaPoint += 10;
-    }
-
-    public void raiseDmg() {
-        dmg += 1;
-    }
-
-    public void raiseDef() {
-        def += 1;
-    }
-
     public boolean regenHp() {
         return (currentHp != maxHp);
     }
 
     public boolean regenMana() {
-        return (manaPoint != currentMana);
+        return (maxMp != currentMana);
     }
 
     public void fixStats() {
         if (currentHp > maxHp)
             currentHp = maxHp;
-        if (currentMana > manaPoint)
-            currentMana = manaPoint;
+        if (currentMana > maxMp)
+            currentMana = maxMp;
     }
 
     public boolean addItem(Item item){
         for (int i =0;i < 24;i++) {
             if (Inventar[i] == null) {
-                Inventar[i] = item;
+                Inventar[i] = item.clone();
                 return true;
             }
         }

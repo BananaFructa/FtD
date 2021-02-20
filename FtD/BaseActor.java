@@ -1,13 +1,15 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseActor extends Actor {
 
     protected Vector2f Pozitie;
     protected Vector2f Viteza;
+
+    protected final List<SpeedComponent> ForteExterne = new ArrayList<>();
 
     public BaseActor(float x,float y) {
         this(new Vector2f(x,y));
@@ -15,7 +17,9 @@ public class BaseActor extends Actor {
     }
 
     public void Update() {
-
+        for (SpeedComponent s : ForteExterne) {
+            s.Update();
+        }
     }
 
     public void Init() {
@@ -43,6 +47,19 @@ public class BaseActor extends Actor {
         return this.Viteza;
     }
 
+    public void AddFortaExterna(SpeedComponent s) {
+        synchronized (ForteExterne) {
+            s.parent = this;
+            ForteExterne.add(s);
+        }
+    }
+
+    public void EliminaFortaExterna(SpeedComponent e) {
+        synchronized (ForteExterne) {
+            ForteExterne.remove(e);
+        }
+    }
+
     @Override
     public void act() {
         if (Greenfoot.mousePressed(this)) {
@@ -50,6 +67,10 @@ public class BaseActor extends Actor {
             Lume.Instanta.inputMouse.SetButton(Greenfoot.getMouseInfo().getButton());
             Lume.Instanta.inputMouse.SetObiect(this);
         }
-        this.SetPozitie(this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)).Scade(Lume.Instanta.CameraPosition));
+        Vector2f Pos = this.Pozitie.Aduna(this.Viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp)).Scade(Lume.Instanta.CameraPosition);
+        for (SpeedComponent s : ForteExterne) {
+            Pos = Pos.Aduna(s.viteza.MultiplicaScalar(Lume.Instanta.DeltaTimp));
+        }
+        this.SetPozitie(Pos);
     }
 }

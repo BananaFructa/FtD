@@ -1,5 +1,6 @@
 public class ProprietatiParticuleEmise {
 
+    public String tex;
     public int NumarParticule;
     public float VitezaMin;
     public float VitezaMax;
@@ -24,13 +25,14 @@ public class ProprietatiParticuleEmise {
 
     }
 
-    public ProprietatiParticuleEmise(int NumarParticule,float VitezaMin,float VitezaMax,int LifetimeMin,int LifetimeMax,float UnghiDeviere) {
+    public ProprietatiParticuleEmise(String tex,int NumarParticule,float VitezaMin,float VitezaMax,int LifetimeMin,int LifetimeMax,float UnghiDeviere) {
         this.NumarParticule = NumarParticule;
         this.VitezaMin = VitezaMin;
         this.VitezaMax = VitezaMax;
         this.LifetimeMin = LifetimeMin;
         this.LifetimeMax = LifetimeMax;
         this.UnghiDeviere = UnghiDeviere;
+        this.tex = tex;
     }
 
 }

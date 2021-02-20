@@ -1,68 +1,39 @@
 public class Item {
 
     public String tex = "fig.png";
-    private int dmg = 0;
-    private int manaDrain = 0;
-    private int manaPoint = 0;
-    private int defPoint = 0;
-    private int lvl = 0;
-    private int manaRegenPoint = 0;
-    private int hpRegenPoint = 0;
-    private int criticalChance = 0;
-    private int hpGain;
-    private int manaGain;
-    private String clasa;// Wand Robe Hat Boots Ring Potion
+    public float Damage;
+    public float ManaCost;
+    public float AttackSpeed;
+    public float KnockBack;
 
-    public Item(){
+    public ProprietatiParticuleEmise ppe;
+    public ProprietatiProiectil pp;
+
+    public boolean Attacks = false;
+
+    public Item() {
 
     }
 
-    public void generateStat() {
-        dmg *= lvl;
-        manaDrain *= lvl;
-        manaPoint *= lvl;
-        defPoint *= lvl;
-        manaRegenPoint *= lvl;
-        criticalChance *= lvl;
+    public Item(String tex,float Damage,float ManaCost,float AttackSpeed,float KnockBack,boolean Attacks) {
+        this.tex = tex;
+        this.Damage = Damage;
+        this.ManaCost = ManaCost;
+        this.AttackSpeed = AttackSpeed;
+        this.KnockBack = KnockBack;
+        this.Attacks = Attacks;
     }
 
-    public int getCriticalChance() {
-        return criticalChance;
+    public Item(String tex,float Damage,float ManaCost,float AttackSpeed,float KnockBack,boolean Attacks,ProprietatiParticuleEmise ppe,ProprietatiProiectil pp) {
+        this(tex,Damage,ManaCost,AttackSpeed,KnockBack,Attacks);
+        this.ppe = ppe;
+        this.pp = pp;
+        this.pp.Damage = Damage;
+        this.pp.Knockback = KnockBack;
     }
 
-    public int getDefPoint() {
-        return defPoint;
-    }
-
-    public int getDmg() {
-        return dmg;
-    }
-
-    public int getHpGain() {
-        return hpGain;
-    }
-
-    public int getHpRegenPoint() {
-        return hpRegenPoint;
-    }
-
-    public int getLvl() {
-        return lvl;
-    }
-
-    public int getManaDrain() {
-        return manaDrain;
-    }
-
-    public int getManaGain() {
-        return manaGain;
-    }
-
-    public int getManaPoint() {
-        return manaPoint;
-    }
-
-    public int getManaRegenPoint() {
-        return manaRegenPoint;
+    @Override
+    protected Item clone() {
+        return new Item(tex,Damage,ManaCost,AttackSpeed,KnockBack,Attacks,ppe,pp);
     }
 }

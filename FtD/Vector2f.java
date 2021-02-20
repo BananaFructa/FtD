@@ -29,4 +29,12 @@ public class Vector2f {
         return new Vector2f(x * f,y * f);
     }
 
+    public Vector2f AdunaCuScalar(float f) {
+        return new Vector2f(x+f,y+f);
+    }
+
+    public float Distanta(Vector2f v) {
+        return (float)Math.sqrt((Math.pow(v.x-this.x, 2) + Math.pow(v.y-this.y,2)));
+    }
+
 }

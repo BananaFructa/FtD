@@ -33,20 +33,12 @@ public class Lume extends World
         managerObiecte.Init();
         Interfete.Init();
 
-        Item item1=new Item();
-        Item item2=new Item();
-        Item item3=new Item();
-        Item item4=new Item();
-        Item item5=new Item();
-        Item item6=new Item();
-        Item item7=new Item();
-       // System.out.println(item1.getX()+" "+item1.getY());
-       // System.out.println(item2.getX()+" "+item2.getY());
         player = new Player();
-        player.SetViteza(new Vector2f(0.5f,0));
-        for (int i = 0;i< 1;i++)player.addItem(item1);
+
+        player.addItem(Items.EnergyWand);
 
         managerObiecte.AdaugaActor(player);
+        managerObiecte.AdaugaActor(new InamicBall(40,40));
 
     }
 

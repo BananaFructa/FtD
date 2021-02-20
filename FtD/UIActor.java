@@ -60,10 +60,22 @@ public class UIActor extends Actor {
         this.setLocation((int)this.Pozitie.x + w/2,(int)this.Pozitie.y + h/2);
     }
 
+    public void Resize(float f) {
+        float newW = this.getImage().getWidth()*f;
+        float newH = this.getImage().getHeight()*f;
+        this.getImage().scale((int)(newW),(int)(newH));
+        this.setLocation((int)(this.Pozitie.x + newW/2),(int)(this.Pozitie.y + newH/2));
+    }
+
     public void Toggle() {
         this.Deschis = !this.Deschis;
         if (Deschis) Deschide();
         else Inchide();
+    }
+
+    public void SetAsHolder() {
+        this.setPozitie(-9999,-9999);
+        this.setImage("null.png");
     }
 
     public void Init() {
