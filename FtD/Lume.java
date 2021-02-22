@@ -24,7 +24,8 @@ public class Lume extends World
 
     public Lume()
     {
-        super(1024, 512, 1,false);
+        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        super(16000, 1600, 1,false);
         this.setPaintOrder(UIActor.class,BaseActor.class);
 
         Instanta = this;
