@@ -149,6 +149,7 @@ public class Player extends BaseActor {
         if (Lume.Instanta.inputMouse.Apasat() && !Lume.Instanta.inputMouse.UIClick) {
             if (Inventar[0] != null && Inventar[0].AttackSpeed < TicksSinceLastShoot && currentMana >= Inventar[0].ManaCost && Inventar[0].Attacks) {
                 TicksSinceLastShoot = 0;
+                if (Inventar[0].tex.equals("iteme/cell_wand.png"));
                 currentMana -= Inventar[0].ManaCost;
                 int w = Lume.Instanta.getWidth() >> 1;
                 int h = Lume.Instanta.getHeight() >> 1;

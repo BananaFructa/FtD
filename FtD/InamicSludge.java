@@ -6,7 +6,7 @@ public class InamicSludge extends Inamic {
     Animatie normalAnimatie;
 
     public InamicSludge(int x,int y) {
-        super(x,y,40,1.1f,100,20);
+        super(x,y,40,0.6f,100,20);
         normalAnimatie = new Animatie(DateAnimatii.SLUDGE_ANIMATION,this);
         normalAnimatie.Start();
     }

@@ -3,14 +3,15 @@ import java.util.List;
 
 public class PlayerFollowBeam extends SistemParticule {
 
-    List<Item> Items = new ArrayList<>();
+    List<Item> Items_ = new ArrayList<>();
 
     public PlayerFollowBeam (int x,int y,List<Tuple<Item,Float>> dropList) {
         super(x,y,DateParticule.PlayerFollow,0,0,-1);
         this.setImage("null.png");
         for (Tuple<Item,Float> drop : dropList) {
             if (drop.Secund() > Lume.MasterRandom.nextFloat()) {
-                Items.add(drop.Prim());
+                if (drop.Prim() == Items.CellWand) Lume.Instanta.PlayerAObitinuteArma = true;
+                Items_.add(drop.Prim());
             }
         }
     }
@@ -20,7 +21,7 @@ public class PlayerFollowBeam extends SistemParticule {
         super.Update();
         Player p = (Player) getOneIntersectingObject(Player.class);
         if (p != null) {
-            for (Item i : Items) {
+            for (Item i : Items_) {
                 p.addItem(i);
             }
             Lume.Instanta.managerObiecte.DisterugeActor(this);

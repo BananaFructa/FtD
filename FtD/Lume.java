@@ -10,6 +10,7 @@ public class Lume extends World
     public static Random MasterRandom = new Random();
 
     private long SystemTime = 0;
+    private long SpawnTime = 0;
     private int FpsNumarator = 999999;
     public int Fps = 0;
     public float DeltaTimp = 0;
@@ -22,7 +23,11 @@ public class Lume extends World
 
     public InputMouse inputMouse = new InputMouse();
     public InputKeyboard inputKeyboard = new InputKeyboard();
-    public MapeManager map;
+
+    public BaseActor harta;
+
+    public boolean PlayerAObitinuteArma = false;
+
     public Lume()
     {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -32,7 +37,6 @@ public class Lume extends World
         Instanta = this;
 
         Init();
-        prepare();
     }
 
     public void Init() {
@@ -41,19 +45,16 @@ public class Lume extends World
 
         managerObiecte.Init();
         Interfete.Init();
-        try {
-            map=new MapeManager();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         player = new Player();
+        harta = new BaseActor(-100,-100);
+        harta.setImage("harta.png");
 
         player.addItem(Items.EnergyWand);
-        player.addItem(Items.ToxiWand);
 
+        harta.Resize(2000,2000);
+
+        managerObiecte.AdaugaActor(harta);
         managerObiecte.AdaugaActor(player);
-        //managerObiecte.AdaugaActor(new InamicBall(40,40));
-        //managerObiecte.AdaugaActor(new InamicSludge(100,100));
     }
 
     @Override
@@ -64,6 +65,13 @@ public class Lume extends World
             FpsNumarator = 0;
             DeltaTimp = FpsDeBaza/Fps;
             SystemTime = System.currentTimeMillis();
+        }
+        if (System.currentTimeMillis() - SpawnTime >= 20000) {
+            SpawnTime = System.currentTimeMillis();
+            managerObiecte.AdaugaActor(new InamicBall(0,100));
+            if (PlayerAObitinuteArma) {
+                managerObiecte.AdaugaActor(new InamicBall(0,-100));
+            }
         }
         FpsNumarator++;
         if (Greenfoot.getMouseInfo() != null) {
@@ -77,13 +85,5 @@ public class Lume extends World
             inputMouse.SetObiect(null);
 
         }
-    }
-
-    /**
-     * Prepare the world for the start of the program.
-     * That is: create the initial objects and add them to the world.
-     */
-    private void prepare()
-    {
     }
 }
