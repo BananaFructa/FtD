@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class InamicBall extends Inamic {
 
     Animatie normalAnimatie;
@@ -8,4 +11,10 @@ public class InamicBall extends Inamic {
         normalAnimatie.Start();
     }
 
+    @Override
+    public List<Tuple<Item, Float>> GetDrops() {
+        return new ArrayList<Tuple<Item, Float>>(){{
+            add(new Tuple<>(Items.CellWand,0.1f));
+        }};
+    }
 }

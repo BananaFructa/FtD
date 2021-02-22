@@ -22,14 +22,13 @@ public class Inamic extends BaseActor {
     public void Update() {
         super.Update();
         TicksSinceLastAttack++;
-        System.out.println(this.Pozitie.Distanta(Lume.Instanta.player.Pozitie));
         if (this.Pozitie.Distanta(Lume.Instanta.player.Pozitie) < 30f && TicksSinceLastAttack > AttackSpeed) {
             TicksSinceLastAttack = 0;
             Lume.Instanta.player.currentHp -= Damage;
         }
         if (Health <= 0) {
             Lume.Instanta.managerObiecte.DisterugeActor(this);
-            Lume.Instanta.managerObiecte.AdaugaActor(new PlayerFollowBeam((int)this.Pozitie.x,(int)this.Pozitie.y));
+            Lume.Instanta.managerObiecte.AdaugaActor(new PlayerFollowBeam((int)this.Pozitie.x,(int)this.Pozitie.y,this.GetDrops()));
         }
         UrmarestePlayer();
     }

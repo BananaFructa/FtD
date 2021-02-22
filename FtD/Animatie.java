@@ -1,6 +1,3 @@
-import greenfoot.Actor;
-import greenfoot.GreenfootImage;
-
 public class Animatie {
 
     DateAnimatii Info;

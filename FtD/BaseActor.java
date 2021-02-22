@@ -13,6 +13,7 @@ public class BaseActor extends Actor {
 
     public BaseActor(float x,float y) {
         this(new Vector2f(x,y));
+        this.Pozitie = new Vector2f(x,y);
         Viteza = new Vector2f(0,0);
     }
 

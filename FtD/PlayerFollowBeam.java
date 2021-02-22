@@ -5,9 +5,14 @@ public class PlayerFollowBeam extends SistemParticule {
 
     List<Item> Items = new ArrayList<>();
 
-    public PlayerFollowBeam (int x,int y) {
+    public PlayerFollowBeam (int x,int y,List<Tuple<Item,Float>> dropList) {
         super(x,y,DateParticule.PlayerFollow,0,0,-1);
         this.setImage("null.png");
+        for (Tuple<Item,Float> drop : dropList) {
+            if (drop.Secund() > Lume.MasterRandom.nextFloat()) {
+                Items.add(drop.Prim());
+            }
+        }
     }
 
     @Override

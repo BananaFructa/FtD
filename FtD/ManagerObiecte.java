@@ -113,4 +113,10 @@ public class ManagerObiecte {
     public void DistrugeAnimatie(Animatie animatie) {
         Animatii.Elimina(animatie);
     }
+
+    public void RemoveAllOf(Class<?> type) {
+        for (BaseActor b : Actori.Normal) {
+            if (type.isInstance(b)) this.DisterugeActor(b);
+        }
+    }
 }

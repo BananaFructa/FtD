@@ -52,6 +52,13 @@ public class Player extends BaseActor {
             currentMana += 1;
         }
 
+        if (currentHp <= 0) {
+            SetPozitie(new Vector2f(0,0));
+            currentMana = maxMp/2;
+            currentHp = maxHp;
+            Lume.Instanta.managerObiecte.RemoveAllOf(Inamic.class);
+        }
+
         fixStats();
 
         if(I){
@@ -148,7 +155,14 @@ public class Player extends BaseActor {
         }
     }
 
-    public void SetItem(int idx,Item item) {
+    @Override
+    public void SetPozitie(Vector2f v) {
+        synchronized (this) {
+            super.SetPozitie(v);
+        }
+    }
+
+    public void SetItem(int idx, Item item) {
         this.Inventar[idx] = item;
     }
 
@@ -171,6 +185,9 @@ public class Player extends BaseActor {
         for (int i =0;i < 24;i++) {
             if (Inventar[i] == null) {
                 Inventar[i] = item.clone();
+                if(Interfete.Inventar.Deschis) {
+                    Interfete.Inventar.UpdateTexturi();
+                }
                 return true;
             }
         }

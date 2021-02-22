@@ -11,7 +11,7 @@ public class UIInventory extends UIActor implements IContainer {
 
     public UIInventory() {
         super(0, 0);
-        CursorSlot.SetItem(new Item());
+        CursorSlot.SetItem(null);
         this.setImage("background.png");
         this.getImage().scale((int)(200*2),(int)(116*2));
         for (int i = 0;i < 24;i++) {

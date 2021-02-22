@@ -14,9 +14,9 @@ public class Lume extends World
     public float DeltaTimp = 0;
     public final float FpsDeBaza = 60;
 
-    public Vector2f CameraPosition = new Vector2f(0,0);
+    public Vector2f CameraPosition;
 
-    public ManagerObiecte managerObiecte = new ManagerObiecte();
+    public ManagerObiecte managerObiecte;
     public Player player;
 
     public InputMouse inputMouse = new InputMouse();
@@ -24,11 +24,18 @@ public class Lume extends World
 
     public Lume()
     {
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1024, 512, 1,false);
         this.setPaintOrder(UIActor.class,BaseActor.class);
 
         Instanta = this;
+
+        Init();
+        prepare();
+    }
+
+    public void Init() {
+        managerObiecte = new ManagerObiecte();
+        CameraPosition = new Vector2f(0,0);
 
         managerObiecte.Init();
         Interfete.Init();
@@ -36,10 +43,11 @@ public class Lume extends World
         player = new Player();
 
         player.addItem(Items.EnergyWand);
+        player.addItem(Items.ToxiWand);
 
         managerObiecte.AdaugaActor(player);
         managerObiecte.AdaugaActor(new InamicBall(40,40));
-
+        managerObiecte.AdaugaActor(new InamicSludge(100,100));
     }
 
     @Override
@@ -63,5 +71,13 @@ public class Lume extends World
             inputMouse.SetObiect(null);
 
         }
+    }
+
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
     }
 }
