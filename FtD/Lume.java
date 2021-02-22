@@ -52,8 +52,8 @@ public class Lume extends World
         player.addItem(Items.ToxiWand);
 
         managerObiecte.AdaugaActor(player);
-        managerObiecte.AdaugaActor(new InamicBall(40,40));
-        managerObiecte.AdaugaActor(new InamicSludge(100,100));
+        //managerObiecte.AdaugaActor(new InamicBall(40,40));
+        //managerObiecte.AdaugaActor(new InamicSludge(100,100));
     }
 
     @Override
