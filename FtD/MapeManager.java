@@ -1,21 +1,32 @@
 import greenfoot.GreenfootImage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class MapeManager {
     GreenfootImage []Images=new GreenfootImage[4];
-    Mape map=new Mape();
-    UIActor [][][]world;
+    int mape[][][]=new int[4][100][100];
+    BaseActor [][][]world;
     GreenfootImage[][] firstImage;
     GreenfootImage[][] secondImage;
     GreenfootImage[][] thirdImage;
     GreenfootImage[][] forthImage;
     int a1=18,d1=16,a2=18,d2=8,a3=20,d3=40,a4=21,d4=19;
    public MapeManager() throws FileNotFoundException {
-       Images[0]=new GreenfootImage("mape/[Base]BaseChip_pipo.png");
+       Images[0]=new GreenfootImage("mape/BaseChip_pipo.png");
        Images[2]=new GreenfootImage("mape/ashlands_tileset.png");
        Images[1]=new GreenfootImage("mape/4 BigSet.png");
-       Images[3]=new GreenfootImage("mape/Serene_Village_16x16_jMKXuK");
+       Images[3]=new GreenfootImage("mape/Village.png");
+       File map=new File("images/mape/Layers.txt");
+       Scanner scanner=new Scanner(map);
+       for(int i=0;i<100;i++){
+           for(int j=0;j<100;j++){
+               mape[0][i][j]=scanner.nextInt();
+               System.out.print(mape[0][i][j]+" ");
+           }
+           System.out.println();
+       }
        int w=Images[0].getWidth(), h=Images[0].getHeight();
        firstImage = new GreenfootImage[a1][d1];
        for(int x=0; x<a1; x++)
@@ -48,16 +59,17 @@ public class MapeManager {
                forthImage[x][y]=new GreenfootImage(w/a4, h/d4);
                forthImage[x][y].drawImage(Images[3], -x*w/a4, -y*h/d4);
            }
-       world=new UIActor[4][100][100];
+       world=new BaseActor[4][100][100];
+           createLayer(0);
    }
    public void createLayer(int layer){
        int c;
      for(int i=0;i<100;i++){
          for(int j=0;j<100;j++){
-             c=map.mape[layer][i][j]-1;
+             c=mape[layer][i][j]-1;
              if(c!=0){
-                 c=map.mape[layer][i][j]-1;
-                 world[layer][i][j]=new UIActor(j*16,i*16);
+                 c=mape[layer][i][j]-1;
+                 world[layer][i][j]=new BaseActor(j*16,i*16);
                  if(c>=0 && c<=287){
                      world[layer][i][j].setImage(firstImage[c/d1][c%d1]);
                  }
@@ -73,7 +85,7 @@ public class MapeManager {
                      c-=5312;
                      world[layer][i][j].setImage(forthImage[c/d4][c%d4]);
                  }
-                 world[layer][i][j].Resize(16);
+                 //world[layer][i][j].Resize(16);
                  Lume.Instanta.managerObiecte.AdaugaActor(world[layer][i][j]);
              }
          }

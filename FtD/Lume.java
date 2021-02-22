@@ -1,6 +1,7 @@
 import greenfoot.Greenfoot;
 import greenfoot.World;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 public class Lume extends World
@@ -21,11 +22,11 @@ public class Lume extends World
 
     public InputMouse inputMouse = new InputMouse();
     public InputKeyboard inputKeyboard = new InputKeyboard();
-
+    public MapeManager map;
     public Lume()
     {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(16000, 1600, 1,false);
+        super(1024, 512, 1,false);
         this.setPaintOrder(UIActor.class,BaseActor.class);
 
         Instanta = this;
@@ -40,7 +41,11 @@ public class Lume extends World
 
         managerObiecte.Init();
         Interfete.Init();
-
+        try {
+            map=new MapeManager();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         player = new Player();
 
         player.addItem(Items.EnergyWand);
