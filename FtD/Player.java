@@ -120,13 +120,18 @@ public class Player extends BaseActor {
 
             if (orientare == Directie.SUS) MergeSus.Start();
             else MergeSus.Stop();
+
+            if (orientare == Directie.JOS) MergeJos.Start();
+            else MergeJos.Stop();
+
         } else {
             MergeStanga.Stop();
             MergeSus.Stop();
             MergeDreapta.Stop();
+            MergeJos.Stop();
             if (orientare == Directie.STANGA) this.setImage("player/character_looking_left.png");
             if (orientare == Directie.DREAPTA) this.setImage("player/character_looking_right.png");
-            //if (orientare == Directie.JOS) this.setImage("player/character_looking_down.png");
+            if (orientare == Directie.JOS) this.setImage("player/character_looking_down.png");
             if (orientare == Directie.SUS) this.setImage("player/character_looking_up.png");
         }
 

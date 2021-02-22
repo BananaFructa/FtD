@@ -36,6 +36,11 @@ public class BaseActor extends Actor {
         this.setLocation((int)Pozitie.x,(int)Pozitie.y);
     }
 
+    public void Resize(int w, int h) {
+        this.getImage().scale(w,h);
+        this.setLocation((int)this.Pozitie.x + w/2,(int)this.Pozitie.y + h/2);
+    }
+
     public Vector2f GetPozitie(Vector2f v) {
         return this.Pozitie;
     }
